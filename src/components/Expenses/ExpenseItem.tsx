@@ -9,13 +9,6 @@ export const ExpenseItem = (props: any) => {
       <div className="expense-item__description">
         <h2>{props.title}</h2>
         <div className="expense-item__price">€ {props.amount}</div>
-        <button
-          onClick={() => {
-            console.log("Clicked");
-          }}
-        >
-          Change Title
-        </button>
       </div>
     </Card>
   );
