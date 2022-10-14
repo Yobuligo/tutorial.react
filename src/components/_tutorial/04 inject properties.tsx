@@ -1,3 +1,4 @@
+// Property Concept
 // Values which are needed by a component as parameters can be injected via properties
 // The value has to be provided by tag attributes and can be 
 
