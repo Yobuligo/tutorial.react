@@ -24,7 +24,7 @@ export const ExpenseForm = (props: any) => {
 
     const expenseData = {
       title: enteredTitle,
-      amount: enteredAmount,
+      amount: +enteredAmount,
       date: new Date(enteredDate),
     };
 
@@ -51,7 +51,7 @@ export const ExpenseForm = (props: any) => {
             type="number"
             min="0.01"
             step="0.01"
-            value={enteredAmount}
+            value={enteredAmount}            
             onChange={amountChangeHandler}
           />
         </div>
@@ -66,6 +66,7 @@ export const ExpenseForm = (props: any) => {
           />
         </div>
         <div className="new-expense__actions">
+          <button type="button" onClick={props.onCancel}>Cancel</button>
           <button type="submit">Add expense</button>
         </div>
       </div>

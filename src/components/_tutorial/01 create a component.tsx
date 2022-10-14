@@ -4,7 +4,7 @@
 export function FirstComponent() {
   return (
     <div>
-      <h1>Simple Component</h1>
+      <h1>Hello World</h1>
     </div>
   );
 }
