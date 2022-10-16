@@ -12,7 +12,7 @@ export const GoalsForm: React.FC<{ onAddGoal: (goalTitle: string) => void }> = (
   };
 
   return (
-    <div className="goals-form">
+    <div className={`goals-form ${!isGoalTitleValid ? "invalid" : ""}`}>
       <form
         onSubmit={(event) => {
           event.preventDefault();
@@ -26,10 +26,9 @@ export const GoalsForm: React.FC<{ onAddGoal: (goalTitle: string) => void }> = (
         }}
       >
         <div>
-          <h2 style={{ color: !isGoalTitleValid ? "red" : "black" }}>Goal</h2>
+          <h2>Goal</h2>
           <input
             type="text"
-            style={{ borderColor: !isGoalTitleValid ? "red" : "black" }}
             value={goalTitle}
             onChange={(event) => {
               setGoalTitle(event.target.value);

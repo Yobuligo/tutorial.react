@@ -22,3 +22,11 @@
   margin-top: 1rem;
   padding: 0.5rem;
 }
+
+.goals-form.invalid h2 {
+  color: red;
+}
+
+.goals-form.invalid input {
+  border-color: red;
+}
