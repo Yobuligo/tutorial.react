@@ -1,0 +1,12 @@
+.conditional-style-dynamically-component {
+  background-color: aliceblue;
+  color: black;
+}
+
+.conditional-style-dynamically-component.invalid input {
+  border-color: red;
+}
+
+.conditional-style-dynamically-component.invalid h2 {
+  color: red;
+}

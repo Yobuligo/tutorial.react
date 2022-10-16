@@ -4,7 +4,7 @@
 
 import { useState } from "react";
 
-export const ConditionalStyleComponent: React.FC = () => {
+export const ConditionalStyleInlineComponent: React.FC = () => {
   const [value, setValue] = useState("");
   const [isValidValue, setIsValidValue] = useState(true);
 
