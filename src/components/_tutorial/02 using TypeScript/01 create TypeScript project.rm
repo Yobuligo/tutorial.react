@@ -1,0 +1,4 @@
+Instead of writing plane JavaScript it is possible to write React code in TypeScript.
+This provides a type safe way and therefor a more stable code.
+to create a React project for TypeScript the following node.js command can be executed on the windows console:
+npx create-react-app <your_project_name> --template typescript
