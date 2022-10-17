@@ -1,4 +1,9 @@
 import { LessonExpenses } from "./01 Lesson Expenses/LessonExpenses";
 import { LessonStyling } from "./02 Lesson Styling/LessonStyling";
+import { LessonPracticeProject } from "./03 Lesson Practice Project/LessonPracticeProject";
 
-export const lessons = [new LessonExpenses(), new LessonStyling()];
+export const lessons = [
+  new LessonExpenses(),
+  new LessonStyling(),
+  new LessonPracticeProject(),
+];
