@@ -1,0 +1,7 @@
+.style-component {
+  color: red;
+}
+
+.style-component.invalid{
+  color: blue
+}
