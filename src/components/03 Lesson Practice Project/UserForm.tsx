@@ -8,14 +8,39 @@ export const UserForm: React.FC<{
 }> = (props) => {
   const [username, setUsername] = useState<string>();
   const [age, setAge] = useState<string>();
+  const [error, setError] = useState<{ title: string; message: string }>();
 
   return (
     <div>
-      <ErrorModal title="An error occurred!" message="Something went wrong!" />
+      {error && (
+        <ErrorModal
+          title={error.title}
+          message={error.message}
+          onConfirm={() => {
+            setError(undefined);
+          }}
+        />
+      )}
       <form
         className={styles.userForm}
         onSubmit={(event) => {
           event.preventDefault();
+          if (username === undefined || username.length === 0) {
+            setError({
+              title: "Invalid username",
+              message: "Please enter a valid username",
+            });
+            return;
+          }
+
+          if (age === undefined || +age <= 0) {
+            setError({
+              title: "Invalid age",
+              message: "Please enter a valid age.",
+            });
+            return;
+          }
+
           if (username !== undefined && age !== undefined && +age > 0) {
             props.onAddUser(username, Number(age));
             setUsername("");
