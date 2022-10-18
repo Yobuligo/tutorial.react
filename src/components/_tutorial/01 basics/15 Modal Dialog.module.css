@@ -1,0 +1,14 @@
+.backdrop {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  background-color: rgba(65, 65, 65, 0.75);
+}
+
+.modalDialog {
+  position: fixed;
+  width: 50%;
+  left: 25%;
+  top: 10%;
+}
