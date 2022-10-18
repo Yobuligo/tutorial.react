@@ -6,8 +6,10 @@
   width: 50rem;
 }
 
-.UserForm.username {
-  margin: 1rem;
+.Block {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .UserForm label {
@@ -16,6 +18,7 @@
 
 .UserForm input {
   font-size: large;
+  width: 15rem;
 }
 
 .UserForm button {
@@ -23,4 +26,5 @@
   color: white;
   font-size: large;
   margin-top: 1rem;
+  padding: 0.5rem;
 }

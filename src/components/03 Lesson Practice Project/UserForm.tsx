@@ -12,30 +12,27 @@ export const UserForm: React.FC<{
       className={styles.UserForm}
       onSubmit={(event) => {
         event.preventDefault();
+
         if (username !== undefined && age !== undefined) {
           props.onAddUser(username, age);
         }
       }}
     >
-      <div className={styles.Username}>
+      <div className={styles.Block}>
         <label>Username</label>
-        <div>
-          <input
-            onChange={(event) => {
-              setUsername(event.target.value);
-            }}
-          />
-        </div>
+        <input
+          onChange={(event) => {
+            setUsername(event.target.value);
+          }}
+        />
       </div>
-      <div>
+      <div className={styles.Block}>
         <label>Age (Years)</label>
-        <div>
-          <input
-            onChange={(event) => {
-              setAge(Number(event.target.value));
-            }}
-          />
-        </div>
+        <input
+          onChange={(event) => {
+            setAge(Number(event.target.value));
+          }}
+        />
       </div>
       <button type="submit">Add User</button>
     </form>
