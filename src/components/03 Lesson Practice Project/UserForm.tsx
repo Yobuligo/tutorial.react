@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { AddButton } from "./AddButton";
 import styles from "./UserForm.module.css";
 
 export const UserForm: React.FC<{
@@ -9,7 +10,7 @@ export const UserForm: React.FC<{
 
   return (
     <form
-      className={styles.UserForm}
+      className={styles.userForm}
       onSubmit={(event) => {
         event.preventDefault();
 
@@ -18,23 +19,28 @@ export const UserForm: React.FC<{
         }
       }}
     >
-      <div className={styles.Block}>
-        <label>Username</label>
+      <div className={styles.block}>
+        <label htmlFor="username">Username</label>
         <input
+          id="username"
+          type="text"
           onChange={(event) => {
             setUsername(event.target.value);
           }}
         />
       </div>
-      <div className={styles.Block}>
-        <label>Age (Years)</label>
+      <div className={styles.block}>
+        <label htmlFor="age">Age (Years)</label>
         <input
+          id="age"
+          type="number"
           onChange={(event) => {
             setAge(Number(event.target.value));
           }}
         />
       </div>
-      <button type="submit">Add User</button>
+
+      <AddButton caption="Add User" type="submit" />
     </form>
   );
 };

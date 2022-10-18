@@ -1,4 +1,4 @@
-.UserForm {
+.userForm {
   background-color: white;
   border-radius: 12px;
   margin: 1rem;
@@ -6,22 +6,22 @@
   width: 50rem;
 }
 
-.Block {
+.block {
   margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
 }
 
-.UserForm label {
+.userForm label {
   font-size: large;
 }
 
-.UserForm input {
+.userForm input {
   font-size: large;
   width: 15rem;
 }
 
-.UserForm button {
+.userForm button {
   background-color: blueviolet;
   color: white;
   font-size: large;
