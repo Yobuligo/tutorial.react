@@ -19,7 +19,11 @@
   border-radius: 12px;
 }
 
-.buttonBox {
+.header {
+  color: black;
+}
+
+.footer {
   display: flex;
   justify-content: right;
 }

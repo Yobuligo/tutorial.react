@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Button } from "./Button";
 import { ErrorModal } from "./ErrorModal";
 import styles from "./UserForm.module.css";
@@ -9,6 +9,8 @@ export const UserForm: React.FC<{
   const [username, setUsername] = useState<string>();
   const [age, setAge] = useState<string>();
   const [error, setError] = useState<{ title: string; message: string }>();
+  const usernameRef = useRef(null);
+  const ageRef = useRef(null);
 
   return (
     <div>
@@ -57,6 +59,7 @@ export const UserForm: React.FC<{
             onChange={(event) => {
               setUsername(event.target.value);
             }}
+            ref={usernameRef}
           />
         </div>
         <div className={styles.block}>
@@ -68,6 +71,7 @@ export const UserForm: React.FC<{
             onChange={(event) => {
               setAge(event.target.value);
             }}
+            ref={ageRef}
           />
         </div>
 
