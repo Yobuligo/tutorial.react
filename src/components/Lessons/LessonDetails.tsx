@@ -1,11 +1,16 @@
-import "./LessonDetails.css";
+import "./LessonDetails.module.css";
+import styles from "./LessonDetails.module.css";
 import { ILesson } from "./model/ILesson";
 
 export const LessonDetails: React.FC<{ lesson: ILesson }> = (props) => {
   return (
-    <div className="lesson-details">
-      <h2>{props.lesson.title}</h2>
-      <div>{props.lesson.component({}, {})}</div>
-    </div>
+    <>
+      <div>
+        <header className={styles.header}>{props.lesson.title}</header>
+        <div>
+          <div>{props.lesson.component({}, {})}</div>
+        </div>
+      </div>
+    </>
   );
 };

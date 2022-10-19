@@ -1,0 +1,13 @@
+.lesson-details h2 {
+  color: white;
+  padding-left: 1rem;
+}
+
+.header {
+  background-color: blueviolet;
+  padding: 1rem;
+  font-size: xx-large;
+  color: white;
+  width: 100vh;
+  border-radius: 12px;
+}
