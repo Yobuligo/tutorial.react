@@ -3,7 +3,7 @@
   justify-content: center;
 }
 
-.loginButton button {
+.loginButtonValid {
   background-color: blueviolet;
   color: white;
   font-size: large;
@@ -11,10 +11,16 @@
   padding-left: 1rem;
   padding-right: 1rem;
   border-radius: 12px;
-  border-color: rgba(255, 255, 255,0.0);
+  border-color: rgba(255, 255, 255, 0);
 }
 
-.disabled{
+.loginButtonInvalid{
   background-color: gray;
-  color: black;
+  color: white;
+  font-size: large;
+  padding: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-radius: 12px;
+  border-color: rgba(255, 255, 255, 0);  
 }

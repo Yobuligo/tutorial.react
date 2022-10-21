@@ -6,7 +6,14 @@ export const LoginButton: React.FC<{
 }> = (props) => {
   return (
     <div className={styles.loginButton}>
-      <button type="submit" onClick={props.onClick}>
+      <button
+        className={
+          props.disabled ? styles.loginButtonInvalid : styles.loginButtonValid
+        }
+        type="submit"
+        disabled={props.disabled}
+        onClick={props.onClick}
+      >
         Login
       </button>
     </div>

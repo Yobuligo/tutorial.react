@@ -7,8 +7,8 @@ export const Login = () => {
   const LOGGED_IN = "LOGGED_IN";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [areCredentialsValid, setAreCredentialsValid] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [areCredentialsValid, setAreCredentialsValid] = useState(true);
 
   const onSubmitHandler = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -29,8 +29,16 @@ export const Login = () => {
     }
   }, []);
 
+  useEffect(() => {
+    if (email.includes("@") && password.trim().length > 6) {
+      setAreCredentialsValid(true);
+    } else {
+      setAreCredentialsValid(false);
+    }
+  }, [email, password]);
+
   const onLogoutHandler = () => {
-    localStorage.setItem(LOGGED_IN, "0");
+    localStorage.removeItem(LOGGED_IN);
     setIsLoggedIn(false);
   };
 
@@ -65,7 +73,7 @@ export const Login = () => {
             </div>
             <footer className={styles.footer}>
               <LoginButton
-                disabled={areCredentialsValid}
+                disabled={!areCredentialsValid}
                 onClick={() => {
                   console.log("User was logged in");
                   localStorage.setItem(LOGGED_IN, "1");

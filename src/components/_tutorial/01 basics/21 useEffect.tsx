@@ -9,7 +9,7 @@
 //  2. the global variables
 //
 
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 
 export const UseEffectComponent: React.FC = () => {
   const [value, setValue] = useState<string>();
@@ -20,4 +20,33 @@ export const UseEffectComponent: React.FC = () => {
     setValue("Test");
   }, []);
   return <></>;
+};
+
+// the following example shows a useState which depends on changes of another useState. Only if the depended useState changes a refresh is executed
+// only if the username is valid which means it is longer than 6 characters, a button is enabled
+export const UseEffectDependsComponent: React.FC = () => {
+  const [username, setUsername] = useState("");
+  const [isUsernameValid, setIsUsernameValid] = useState(false);
+
+  const onInputChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    setUsername(event.target.value);
+  };
+
+  // whenever the username changed, the useEffect is called
+  // in addition the useEffect checks some conditions and sets if the username is valid
+  // if it is valid or gets invalid the rerendering of the component is triggered and the depended button is disabled or enabled
+  useEffect(() => {
+    if (username.length > 6) {
+      setIsUsernameValid(true);
+    } else {
+      setIsUsernameValid(false);
+    }
+  }, [username]);
+
+  return (
+    <>
+      <input onChange={onInputChangeHandler} />
+      <button disabled={!isUsernameValid}>User Valid Button</button>
+    </>
+  );
 };

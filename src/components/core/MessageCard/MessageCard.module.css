@@ -1,7 +1,7 @@
 .messageCard {
-  position: relative;
+  position: absolute;
   text-align: center;
-  margin-top: 15rem;
   width: 40%;
   left: 30%;
+  top: 30%;
 }
