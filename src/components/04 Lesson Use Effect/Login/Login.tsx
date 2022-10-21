@@ -30,11 +30,20 @@ export const Login = () => {
   }, []);
 
   useEffect(() => {
-    if (email.includes("@") && password.trim().length > 6) {
-      setAreCredentialsValid(true);
-    } else {
-      setAreCredentialsValid(false);
-    }
+    console.log("timer set")
+    const timeout = setTimeout(() => {
+      console.log("timer timeout")
+      if (email.includes("@") && password.trim().length > 6) {
+        setAreCredentialsValid(true);
+      } else {
+        setAreCredentialsValid(false);
+      }
+    }, 500);
+
+    return () => {
+      console.log(`timer reset ${timeout}`)
+      clearTimeout(timeout);
+    };
   }, [email, password]);
 
   const onLogoutHandler = () => {

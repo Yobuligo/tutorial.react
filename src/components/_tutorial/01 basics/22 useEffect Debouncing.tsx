@@ -24,7 +24,8 @@ export const UseEffectDebouncingComponent: React.FC = () => {
       }
     }, 500);
 
-    // the timer doesn't finish yet. Therefore it is cleared / reset. 
+    // the useEffect function (the higher order function) can return a function. That function is called whenever a component is destructed.
+    // Here it means whenever a component is destructed the timer will be reset. This ensures that only as long as the component is NOT destructed and the 500 ms are passed the setDisable function is called.
     return () => {
       clearTimeout(timeout);
     };
