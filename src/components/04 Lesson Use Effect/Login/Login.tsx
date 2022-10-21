@@ -10,6 +10,8 @@ export const Login = () => {
   const [areCredentialsValid, setAreCredentialsValid] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  console.log("Login component mounted")
+
   const onSubmitHandler = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
   };
@@ -24,9 +26,10 @@ export const Login = () => {
 
   useEffect(() => {
     const loggedIn = localStorage.getItem(LOGGED_IN);
-    if (loggedIn && loggedIn === "1") {
+    if (loggedIn && loggedIn === "1") {     
       setIsLoggedIn(true);
     }
+    console.log("UseEffect to check if user is logged in executed")
   }, []);
 
   useEffect(() => {
@@ -40,6 +43,8 @@ export const Login = () => {
       }
     }, 500);
 
+    console.log("UseEffect to update login button executed")
+
     return () => {
       console.log(`timer reset ${timeout}`)
       clearTimeout(timeout);
@@ -51,6 +56,7 @@ export const Login = () => {
     setIsLoggedIn(false);
   };
 
+  console.log("Login component mounted completed")
   return (
     <>
       <div className={styles.toolbar}>
