@@ -1,0 +1,23 @@
+.dialog{
+    position: fixed;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 2 8 rgb(82, 82, 82);
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(90, 90, 90,0.75);
+}
+
+.header{
+
+}
+
+.footer{
+
+}

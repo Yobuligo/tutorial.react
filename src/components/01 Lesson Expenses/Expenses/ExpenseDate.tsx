@@ -1,4 +1,4 @@
-import { Card } from "../UI/Card";
+import { CardExpenses } from "../UI/CardExpenses";
 import "./ExpenseDate.css";
 
 export const ExpenseDate = (props: any) => {
@@ -7,10 +7,10 @@ export const ExpenseDate = (props: any) => {
   const year = props.date.getFullYear();
 
   return (
-    <Card className="expense-date">
+    <CardExpenses className="expense-date">
       <div className="expense-date__month">{month}</div>
       <div className="expense-date__year">{year}</div>
       <div className="expense-date__day">{day}</div>
-    </Card>
+    </CardExpenses>
   );
 };

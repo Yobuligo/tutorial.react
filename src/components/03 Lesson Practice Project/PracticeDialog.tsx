@@ -1,7 +1,7 @@
 import ReactDOM from "react-dom";
-import styles from "./Dialog.module.css";
+import styles from "./PracticeDialog.module.css";
 
-export const Dialog: React.FC<{
+export const PracticeDialog: React.FC<{
   title: string;
   message: string;
   style?: string;

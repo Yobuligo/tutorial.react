@@ -1,10 +1,24 @@
+.toolbar {
+  background-color: lightgray;
+  display: flex;
+  justify-content: right;
+  height: 3rem;
+}
+
+.toolbar button {
+  margin: 0.5rem;
+  font-size: large;
+  color: white;
+  background-color: blueviolet;
+}
+
 .login {
   background-color: white;
   color: black;
   border-radius: 12px;
-  width: 30%;
-  padding: 1rem;
-  margin: 1rem;
+  width: 40%;
+  margin: 5rem;
+  overflow: hidden;
 }
 
 .block {
@@ -13,6 +27,8 @@
   font-size: large;
   margin-bottom: 1rem;
   margin: 1rem;
+  margin-left: 2rem;
+  margin-right: 2rem;
 }
 
 .block input {
@@ -20,4 +36,23 @@
   font-size: large;
   padding: 0.5rem;
   margin-top: 0.5rem;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  background-color: blueviolet;
+  height: 4rem;
+  color: white;
+  padding-top: 0.5rem;
+  padding-left: 1rem;
+  font-size: xx-large;
+}
+
+.footer {
+  padding: 1rem;
+}
+
+.footer button {
+  width: 10rem;
 }

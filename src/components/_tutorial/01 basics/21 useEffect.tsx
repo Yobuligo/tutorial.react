@@ -9,6 +9,15 @@
 //  2. the global variables
 //
 
+import { useEffect, useState } from "react";
+
 export const UseEffectComponent: React.FC = () => {
+  const [value, setValue] = useState<string>();
+  // this useEffect runs only once at the beginning, when a component is created
+  // It has no dependencies. As the useEffect code is only executed for the first time of a component and when a dependency changed, it runs only once
+  useEffect(() => {
+    // setValue triggers a rerun of this component (but as mentioned before only once at the beginning)
+    setValue("Test");
+  }, []);
   return <></>;
 };

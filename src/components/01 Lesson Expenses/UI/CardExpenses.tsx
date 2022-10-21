@@ -1,6 +1,6 @@
-import "./Card.css";
+import "./CardExpenses.css";
 
-export function Card(props: any) {
+export function CardExpenses(props: any) {
   const classes = "card " + props.className;
   return <div className={classes}>{props.children}</div>;
 }
