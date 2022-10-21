@@ -8,6 +8,12 @@
 //  1. the useState setter functions or other functions like setTimer.
 //  2. the global variables
 //
+// Why use useEffect instead of useState?
+// 1. when useEffect is called you can be sure that depended variables really change and that these variables have to correct, current value
+// 2. when a useState depends on 2 different conditions e.g. username and password is correct and in that case a button should be enabled
+//    then (when not using the useEffect) the condition has to be implemented for both changeHandler. Whenever the username changed or the password you have to check username and password then the button is enabled or disabled.
+//    In case that a third attribute had to be checked to get if a button is enabled or disabled, then the condition in the change handler of the username and password had to be extended. and so on.
+//    By using a useEffect you only add the third dependency and extend the condition once. 
 
 import { ChangeEvent, useEffect, useState } from "react";
 
