@@ -66,7 +66,7 @@ export const Login = () => {
       </div>
       <div>
         {!isLoggedIn ? (
-          <form className={styles.login} onSubmit={onSubmitHandler}>
+          <form className={stvscodeyles.login} onSubmit={onSubmitHandler}>
             <header className={styles.header}>Login</header>
             <div className={styles.block}>
               <label htmlFor="inputEmail">E-Mail</label>
