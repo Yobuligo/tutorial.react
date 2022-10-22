@@ -22,7 +22,7 @@ type ILoginAction =
 interface ILoginState {
   email: string;
   password: string;
-  credentialsValid: boolean;
+  credentialsAreValid: boolean;
 }
 
 const loginReducer: Reducer<ILoginState, ILoginAction> = (
@@ -41,7 +41,7 @@ const loginReducer: Reducer<ILoginState, ILoginAction> = (
     }
   }
 
-  newState.credentialsValid =
+  newState.credentialsAreValid =
     newState.email.includes("@") && newState.password.trim().length > 6;
 
   return newState;
@@ -53,14 +53,12 @@ export const Login = () => {
   const [loginState, dispatchLoginAction] = useReducer<
     Reducer<ILoginState, ILoginAction>
   >(loginReducer, {
-    credentialsValid: true,
+    credentialsAreValid: true,
     email: "",
     password: "",
   });
 
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [areCredentialsValid, setAreCredentialsValid] = useState(false);
+  const [areCredentialsValid, setAreCredentialsValid] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   console.log("Login component mounted");
@@ -88,27 +86,19 @@ export const Login = () => {
     if (loggedIn && loggedIn === "1") {
       setIsLoggedIn(true);
     }
-    console.log("UseEffect to check if user is logged in executed");
   }, []);
 
-  // useEffect(() => {
-  //   console.log("timer set");
-  //   const timeout = setTimeout(() => {
-  //     console.log("timer timeout");
-  //     if (email.includes("@") && password.trim().length > 6) {
-  //       setAreCredentialsValid(true);
-  //     } else {
-  //       setAreCredentialsValid(false);
-  //     }
-  //   }, 500);
+  useEffect(() => {
+    console.log("timer set");
+    const timeout = setTimeout(() => {
+      console.log("timer timeout");
+      setAreCredentialsValid(loginState.credentialsAreValid);
+    }, 500);
 
-  //   console.log("UseEffect to update login button executed");
-
-  //   return () => {
-  //     console.log(`timer reset ${timeout}`);
-  //     clearTimeout(timeout);
-  //   };
-  // }, [email, password]);
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [loginState.email, loginState.password, loginState.credentialsAreValid]);
 
   const onLogoutHandler = () => {
     localStorage.removeItem(LOGGED_IN);
@@ -147,7 +137,7 @@ export const Login = () => {
             </div>
             <footer className={styles.footer}>
               <LoginButton
-                disabled={!loginState.credentialsValid}
+                disabled={!areCredentialsValid}
                 onClick={() => {
                   console.log("User was logged in");
                   localStorage.setItem(LOGGED_IN, "1");
