@@ -4,6 +4,10 @@
 // The useContext is treated like a component which means it can be embedded via JSX.
 // The useContext consists of a provider that provides a context and consumer which access the context
 //
+// When to use Context
+//  - if the context keeps stable and there is no need to adjust the code so often (e.g. when providing an AuthContext or LoginContext, is the use logged in or logged out)
+//  - it shouldn't be used to replace the normal props communication (e.g. for short prop chains)
+//
 // The following steps describe how a useContext is implemented
 //  1. Implement the context
 //  2. Provide the useContext to your components. As a context can be provided via JSX, all components which are wrapped by the context can access the context. These components are consumers. They can access but must not access the context.
