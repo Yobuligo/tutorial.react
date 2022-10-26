@@ -2,11 +2,13 @@ import {
   ChangeEvent,
   FormEvent,
   Reducer,
+  useContext,
   useEffect,
   useReducer,
   useState,
 } from "react";
 import { MessageCard } from "../../core/MessageCard/MessageCard";
+import { AuthContext } from "../store/AuthContext";
 import styles from "./Login.module.css";
 import { LoginButton } from "./LoginButton";
 
@@ -106,6 +108,8 @@ export const Login = () => {
   };
 
   console.log("Login component mounted completed");
+  const ctx = useContext(AuthContext);
+
   return (
     <>
       <div className={styles.toolbar}>
@@ -114,7 +118,7 @@ export const Login = () => {
         </button>
       </div>
       <div>
-        {!isLoggedIn ? (
+        {!ctx.isLogged ? (
           <form className={styles.login} onSubmit={onSubmitHandler}>
             <header className={styles.header}>Login</header>
             <div className={styles.block}>

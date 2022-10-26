@@ -1,7 +1,7 @@
 // Another state management next to useState
 // When to use reducer
 // 	1. When states belong together (e.g. password input value, password valid value )
-//  2. When a states depends on another state (e.g. a button (Login User) is disabled, enabled depending on the given username and password)
+//  2. When a states depends on another state, if they are related (e.g. a button (Login User) is disabled, enabled depending on the given username and password)
 // Otherwise you could also use a useState which contains an object with all information like {firstname: string, lastname: string}
 // But if you have e.g. conditions a useReducer makes sense. {firstname: string, lastname: string, valid: boolean}.
 //
@@ -76,9 +76,8 @@ export const personStateReducer: Reducer<IPersonState, IPersonAction> = (
 
 // 5. provide the component and initialize the reducer
 export const BestPracticeUseReducer: React.FC = () => {
-  const [personState, dispatchPersonAction] = useReducer(
-    personStateReducer,
-    {attr: "initialize value", }
-  );
+  const [personState, dispatchPersonAction] = useReducer(personStateReducer, {
+    attr: "initialize value",
+  });
   return <></>;
 };
