@@ -1,5 +1,7 @@
-import styles from "./name.module.css";
+import styles from "./Toolbar.module.css";
 
-export const name: React.FC = () => {
-  return <></>;
+export const Toolbar: React.FC = () => {
+  return <div className={styles.toolbar}>
+    
+  </div>;
 };
