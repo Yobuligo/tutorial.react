@@ -1,0 +1,11 @@
+.summaryButton button {
+  background-color: brown;
+  color: white;
+  padding: 1rem;
+  border-radius: 20px;
+}
+
+.summaryButtonContent{
+    display: flex;
+    flex-direction: row;
+}
