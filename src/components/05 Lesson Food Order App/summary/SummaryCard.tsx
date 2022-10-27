@@ -1,20 +1,21 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Card } from "../../core/Card/Card";
+import { Context } from "../model/Context";
 import { IMeal } from "../model/IMeal";
 import styles from "./SummaryCard.module.css";
 
 export const SummaryCard: React.FC<{
   meal: IMeal;
-  onAddMeal?: (meal: IMeal, amount: number) => void;
 }> = (props) => {
   const [amount, setAmount] = useState<string>("0");
+  const ctx = useContext(Context);
   const onChangeEventHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAmount(event.target.value);
   };
 
   const onAddMealEventHandler = () => {
     console.log(`Add ${amount} of ${props.meal.title} to shopping cart.`);
-    props.onAddMeal?.(props.meal, Number(amount));
+    ctx.onAddMeal(props.meal, Number(amount));
   };
 
   return (

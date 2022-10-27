@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { Context } from "./model/Context";
 import { IdGenerator } from "./model/IdGenerator";
 import { IMeal } from "./model/IMeal";
+import { IShoppingCartPosition } from "./model/IShoppingCartPosition";
 import { Summary } from "./summary/Summary";
 import { Toolbar } from "./toolbar/Toolbar";
 
@@ -28,9 +30,34 @@ const meals: IMeal[] = [
 ];
 
 export const FoodOrderApp: React.FC = () => {
+  const [shoppingCartPositions, setShoppingCartPositions] = useState<
+    IShoppingCartPosition[]
+  >([]);
+  const onAddMealHandler = (meal: IMeal, amount: number) => {
+    setShoppingCartPositions((present) => {
+      let shoppingCartPosition = present.filter((entry) => {
+        return entry.mealId === meal.id;
+      })[0];
+
+      if (shoppingCartPosition === undefined) {
+        shoppingCartPosition = { mealId: meal.id, amount: amount };
+        return [...present, shoppingCartPosition];
+      } else {
+        shoppingCartPosition.amount += amount;
+        return [...present];
+      }
+    });
+  };
+
   return (
     <>
-      <Context.Provider value={{ meals: meals }}>
+      <Context.Provider
+        value={{
+          meals: meals,
+          shoppingCartPositions: shoppingCartPositions,
+          onAddMeal: onAddMealHandler,
+        }}
+      >
         <Toolbar />
         <Summary />
       </Context.Provider>
