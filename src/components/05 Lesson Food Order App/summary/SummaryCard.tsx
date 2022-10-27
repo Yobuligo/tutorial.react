@@ -18,6 +18,7 @@ export const SummaryCard: React.FC<{ meal: IMeal }> = (props) => {
               <input id="amount" type="number" />
             </div>
             <button>+</button>
+            <button>-</button>
           </div>
         </div>
       </Card>

@@ -14,10 +14,6 @@
 
 .control {
   width: 20%;
-  /* width: 60%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end; */
 }
 
 .input {
@@ -25,7 +21,16 @@
   flex-direction: row;
 }
 
-.input input {
+.control input {
   width: 2rem;
   margin-left: 0.5rem;
+}
+
+.control button {
+  background-color: rgb(201, 51, 51);
+  color: white;
+  border-radius: 12px;
+  width: 2rem;
+  height: 2rem;
+  font-size: large;
 }
