@@ -1,0 +1,11 @@
+.menuButton button {
+  background-color: brown;
+  color: white;
+  padding: 1rem;
+  border-radius: 20px;
+}
+
+.menuButtonContent {
+  display: flex;
+  flex-direction: row;
+}

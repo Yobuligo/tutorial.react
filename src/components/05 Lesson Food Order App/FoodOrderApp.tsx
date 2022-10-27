@@ -3,7 +3,7 @@ import { Context } from "./model/Context";
 import { IdGenerator } from "./model/IdGenerator";
 import { IMeal } from "./model/IMeal";
 import { IShoppingCartPosition } from "./model/IShoppingCartPosition";
-import { Summary } from "./summary/Summary";
+import { Menu } from "./menu/Menu";
 import { Toolbar } from "./toolbar/Toolbar";
 
 const meals: IMeal[] = [
@@ -59,7 +59,7 @@ export const FoodOrderApp: React.FC = () => {
         }}
       >
         <Toolbar />
-        <Summary />
+        <Menu />
       </Context.Provider>
     </>
   );

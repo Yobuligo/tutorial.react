@@ -1,5 +1,5 @@
 import styles from "./SummaryFooter.module.css";
 
-export const SummaryFooter: React.FC = () => {
+export const MenuFooter: React.FC = () => {
   return <></>;
 };

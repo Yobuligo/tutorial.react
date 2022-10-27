@@ -2,9 +2,9 @@ import { useContext, useState } from "react";
 import { Card } from "../../core/Card/Card";
 import { Context } from "../model/Context";
 import { IMeal } from "../model/IMeal";
-import styles from "./SummaryCard.module.css";
+import styles from "./MenuCard.module.css";
 
-export const SummaryCard: React.FC<{
+export const MenuCard: React.FC<{
   meal: IMeal;
 }> = (props) => {
   const [amount, setAmount] = useState<string>("0");
@@ -21,7 +21,7 @@ export const SummaryCard: React.FC<{
   return (
     <div className={styles.frame}>
       <Card>
-        <div className={styles.summaryCard}>
+        <div className={styles.menuCard}>
           <div className={styles.details}>
             <h3>{props.meal.title}</h3>
             <div>{props.meal.description}</div>
