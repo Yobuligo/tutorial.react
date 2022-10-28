@@ -1,4 +1,5 @@
+import { IMeal } from "./IMeal";
 export interface IShoppingCartPosition {
-  mealId: number;
+  meal: IMeal;
   amount: number;
 }
