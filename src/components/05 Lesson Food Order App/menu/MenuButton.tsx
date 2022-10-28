@@ -1,7 +1,10 @@
+import { SummaryDialog } from "../summary/SummaryDialog";
 import styles from "./MenuButton.module.css";
 
 export const MenuButton: React.FC = () => {
-  const onShowSummaryClick = () => {};
+  const onShowSummaryClick = () => {
+    <SummaryDialog />;
+  };
 
   return (
     <div className={styles.menuButton}>
