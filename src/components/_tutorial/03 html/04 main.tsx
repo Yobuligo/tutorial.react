@@ -3,8 +3,16 @@
 
 export const MainComponent: React.FC = () => {
   return (
-    <main>
-      <p>Any Main content of a page</p>
-    </main>
+    <>
+      <header>
+        <h2>I am the header</h2>
+      </header>
+      <main>
+        <p>Any Main content of a page</p>
+      </main>
+      <footer>
+        <h2>I am the footer</h2>
+      </footer>
+    </>
   );
 };
