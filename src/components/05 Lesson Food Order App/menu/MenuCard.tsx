@@ -33,6 +33,8 @@ export const MenuCard: React.FC<{
               <input
                 id="amount"
                 type="number"
+                min="1"
+                max="2"
                 onChange={onChangeEventHandler}
               />
             </div>
