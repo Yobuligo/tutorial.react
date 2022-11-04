@@ -1,5 +1,13 @@
 .movieList {
   width: 50rem;
   margin-top: 1rem;
-  margin-left: 1rem;  
+  margin-left: 1rem;
+}
+
+.movieList button {
+  background-color: blueviolet;
+  color: white;
+  padding: 1rem;
+  border-radius: 12px;
+  font-size: large;
 }
