@@ -40,5 +40,5 @@ export const RESTForInitialLoadingComponent: React.FC = () => {
     loadData();
   }, [loadData]);
 
-  return <></>;
+  return <>{data}</>;
 };
