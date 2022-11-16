@@ -4,9 +4,9 @@ import styles from "./Movie.module.css";
 const Movie: React.FC<{ movie: IMovie }> = (props) => {
   return (
     <section className={styles.movie}>
-      <h3>{props.movie.title}</h3>
-      Episode-Id: {props.movie.episodeId}
-      <p>{props.movie.openingText}</p>
+      <h3>{`${props.movie.title} (${props.movie.year})`}</h3>      
+      {props.movie.length} min
+      <p>{props.movie.genre}</p>
     </section>
   );
 };

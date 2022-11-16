@@ -1,8 +1,9 @@
 interface IMovie {
   id: number;
   title: string;
-  episodeId: number;
-  openingText: string;
+  year: number;
+  length: number;
+  genre: string;
 }
 
 export default IMovie;
