@@ -4,6 +4,7 @@ import { LessonPracticeProject } from "./03 Lesson Practice Project/LessonPracti
 import { LessonUseEffect } from "./04 Lesson Use Effect/LessonUseEffect";
 import { LessonFoodOrderApp } from "./05 Lesson Food Order App/LessonFoodOrderApp";
 import LessonMovieApp from "./06 Lesson Movie App/LessonMovieApp";
+import LessonCounterApp from "./07 Lesson Counter App/LessonCounterApp";
 
 export const lessons = [
   new LessonExpenses(),
@@ -12,4 +13,5 @@ export const lessons = [
   new LessonUseEffect(),
   new LessonFoodOrderApp(),
   new LessonMovieApp(),
+  new LessonCounterApp(),
 ];
