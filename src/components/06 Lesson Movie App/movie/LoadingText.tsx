@@ -1,11 +1,7 @@
-import styles from "./LoadingText.module.css";
+import Text from "./Text";
 
 const LoadingText: React.FC = () => {
-  return (
-    <div className={styles.loadingText}>
-      <p>... Loading</p>
-    </div>
-  );
+  return <Text text="... Fetching data from backend" />;
 };
 
 export default LoadingText;
