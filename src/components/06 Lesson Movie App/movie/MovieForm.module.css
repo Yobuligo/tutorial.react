@@ -1,0 +1,21 @@
+.movieForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.movieForm label {
+  font-size: large;
+  margin-left: 10rem;
+}
+
+.movieForm input {
+  font-size: large;
+  margin-bottom: 0.5rem;
+  margin-left: 10rem;
+  width: 50%;
+}
+
+.movieFormButton {
+  display: flex;
+  justify-content: center;
+}
