@@ -24,7 +24,7 @@ export const RESTForInitialLoadingComponent: React.FC = () => {
    * This function is a 'useCallback' which means the function object is cached and whenever the component is reloaded the same function is instance is reused.
    */
   const loadData = useCallback(async () => {
-    fetch("<myUrl>>")
+    fetch("<myURL>>")
       .then((response) => {
         // convert response to json
         return response.json();
