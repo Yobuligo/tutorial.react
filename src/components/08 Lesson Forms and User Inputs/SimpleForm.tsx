@@ -3,23 +3,21 @@ import ErrorText from "./ErrorText";
 import styles from "./SimpleForm.module.css";
 import useValidator from "./useValidator";
 
+const isNotEmpty = (value: string): boolean => {
+  return value !== "";
+};
+const isEmail = (value: string): boolean => {
+  return value.includes("@");
+};
+
 const SimpleForm: React.FC = () => {
   const nameHook = useValidator((value) => {
-    return value !== "";
+    return isNotEmpty(value);
   });
   const emailHook = useValidator((value) => {
-    return value.includes("@");
+    return isEmail(value);
   });
 
-  // const [name, setName] = useState("");
-  // const [nameTouched, setNameTouched] = useState(false);
-
-  // const [email, setEmail] = useState("");
-  // const [emailTouched, setEmailTouched] = useState(false);
-
-  // const isNameValid = name.trim() !== "";
-  // const isEmailValid = email.includes("@");
-  // const isFormValid = isNameValid && isEmailValid;
   const isFormValid = nameHook.isValueValid && emailHook.isValueValid;
 
   const onSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
