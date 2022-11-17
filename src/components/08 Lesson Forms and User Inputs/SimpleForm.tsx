@@ -5,8 +5,9 @@ import styles from "./SimpleForm.module.css";
 
 const SimpleForm: React.FC = () => {
   const [value, setValue] = useState("");
-  const [isValid, setIsValid] = useState(false);
   const [valueTouched, setValueTouched] = useState(false);
+
+  const isValid = value.trim() !== "";
 
   const needsShowError = (): boolean => {
     if (valueTouched) {
@@ -22,28 +23,22 @@ const SimpleForm: React.FC = () => {
   const onSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setValueTouched(true);
-    validateValue(value);
-  };
-
-  const validateValue = (value: string) => {
-    if (value.trim() === "") {
-      setIsValid(false);
-    } else {
-      setIsValid(true);
+    if (!isValid) {
+      return;
     }
+
+    // pretend to submit
+    setValue("");
+    setValueTouched(false);
   };
 
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
     setValueTouched(true);
-    validateValue(event.target.value);
   };
 
-  const onBlueHandler = (
-    event: React.FocusEvent<HTMLInputElement, Element>
-  ) => {
+  const onBlueHandler = () => {
     setValueTouched(true);
-    validateValue(event.target.value);
   };
 
   return (
