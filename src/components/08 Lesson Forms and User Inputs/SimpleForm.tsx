@@ -4,15 +4,30 @@ import ErrorText from "./ErrorText";
 import styles from "./SimpleForm.module.css";
 
 const SimpleForm: React.FC = () => {
-  const [value, setValue] = useState("");
-  const [valueTouched, setValueTouched] = useState(false);
+  const [name, setName] = useState("");
+  const [nameTouched, setNameTouched] = useState(false);
 
-  const isValid = value.trim() !== "";
-  const isFormValid = isValid;
+  const [email, setEmail] = useState("");
+  const [emailTouched, setEmailTouched] = useState(false);
 
-  const needsShowError = (): boolean => {
-    if (valueTouched) {
-      if (isValid) {
+  const isNameValid = name.trim() !== "";
+  const isEmailValid = email.includes("@");
+  const isFormValid = isNameValid && isEmailValid;
+
+  const needsShowNameError = (): boolean => {
+    if (nameTouched) {
+      if (isNameValid) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  const needsShowEmailError = (): boolean => {
+    if (emailTouched) {
+      if (isEmailValid) {
         return false;
       } else {
         return true;
@@ -23,23 +38,35 @@ const SimpleForm: React.FC = () => {
 
   const onSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setValueTouched(true);
-    if (!isValid) {
+    setNameTouched(true);
+    setEmailTouched(true);
+    if (!isNameValid || !isEmailValid) {
       return;
     }
 
     // pretend to submit
-    setValue("");
-    setValueTouched(false);
+    setName("");
+    setNameTouched(false);
+    setEmail("");
+    setEmailTouched(false);
   };
 
-  const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
-    setValueTouched(true);
+  const onNameChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value);
+    setNameTouched(true);
   };
 
-  const onBlueHandler = () => {
-    setValueTouched(true);
+  const onEmailChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value);
+    setEmailTouched(true);
+  };
+
+  const onNameBlueHandler = () => {
+    setNameTouched(true);
+  };
+
+  const onEmailBlueHandler = () => {
+    setEmailTouched(true);
   };
 
   return (
@@ -72,11 +99,26 @@ const SimpleForm: React.FC = () => {
           <input
             type="text"
             id="name"
-            value={value}
-            onChange={onChangeHandler}
-            onBlur={onBlueHandler}
+            value={name}
+            onChange={onNameChangeHandler}
+            onBlur={onNameBlueHandler}
           />
-          {needsShowError() && <ErrorText text="Entered values not valid" />}
+          {needsShowNameError() && (
+            <ErrorText text="Entered name is not valid" />
+          )}
+
+          <label htmlFor="email">Your Email</label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={onEmailChangeHandler}
+            onBlur={onEmailBlueHandler}
+          />
+          {needsShowEmailError() && (
+            <ErrorText text="Entered email is not valid" />
+          )}
+
           <footer
             className={
               isFormValid ? styles.submitButton : styles.simpleFormInvalidButton
