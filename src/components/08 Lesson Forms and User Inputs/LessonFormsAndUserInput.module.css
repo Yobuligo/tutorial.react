@@ -1,0 +1,35 @@
+.lessonFormsAndUserInput {
+  display: flex;
+  flex-direction: column;
+  width: 40rem;
+}
+
+.lessonFormsAndUserInput form {
+  display: flex;
+  flex-direction: column;
+}
+
+.lessonFormsAndUserInput label {
+  font-size: large;
+  margin: 0.5rem;
+}
+
+.lessonFormsAndUserInput input {
+  font-size: large;
+  margin: 0.5rem;
+  border-radius: 12px;
+  padding: 0.5rem;
+  border-color: lightgray;
+}
+
+.submitButton {
+  display: flex;
+  justify-content: right;
+}
+
+.lessonFormsAndUserInput button {
+  background-color: blueviolet;
+  color: white;
+  font-size: large;
+  padding: 0.5rem;
+}
