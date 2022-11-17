@@ -8,6 +8,7 @@ const SimpleForm: React.FC = () => {
   const [valueTouched, setValueTouched] = useState(false);
 
   const isValid = value.trim() !== "";
+  const isFormValid = isValid;
 
   const needsShowError = (): boolean => {
     if (valueTouched) {
@@ -76,8 +77,14 @@ const SimpleForm: React.FC = () => {
             onBlur={onBlueHandler}
           />
           {needsShowError() && <ErrorText text="Entered values not valid" />}
-          <footer className={styles.submitButton}>
-            <button type="submit">Submit</button>
+          <footer
+            className={
+              isFormValid ? styles.submitButton : styles.simpleFormInvalidButton
+            }
+          >
+            <button disabled={!isFormValid} type="submit">
+              Submit
+            </button>
           </footer>
         </form>
       </Card>

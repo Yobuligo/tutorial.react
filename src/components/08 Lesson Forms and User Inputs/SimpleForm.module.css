@@ -27,9 +27,21 @@
   justify-content: right;
 }
 
-.simpleForm button {
+.submitButton button {
   background-color: blueviolet;
   color: white;
+  font-size: large;
+  padding: 0.5rem;
+}
+
+.simpleFormInvalidButton {
+  display: flex;
+  justify-content: right;
+}
+
+.simpleFormInvalidButton button {
+  background-color: lightgray;
+  color: black;
   font-size: large;
   padding: 0.5rem;
 }
