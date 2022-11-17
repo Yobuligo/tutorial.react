@@ -1,72 +1,35 @@
-import { useState } from "react";
 import { Card } from "../core/Card/Card";
 import ErrorText from "./ErrorText";
 import styles from "./SimpleForm.module.css";
+import useValidator from "./useValidator";
 
 const SimpleForm: React.FC = () => {
-  const [name, setName] = useState("");
-  const [nameTouched, setNameTouched] = useState(false);
+  const nameHook = useValidator((value) => {
+    return value !== "";
+  });
+  const emailHook = useValidator((value) => {
+    return value.includes("@");
+  });
 
-  const [email, setEmail] = useState("");
-  const [emailTouched, setEmailTouched] = useState(false);
+  // const [name, setName] = useState("");
+  // const [nameTouched, setNameTouched] = useState(false);
 
-  const isNameValid = name.trim() !== "";
-  const isEmailValid = email.includes("@");
-  const isFormValid = isNameValid && isEmailValid;
+  // const [email, setEmail] = useState("");
+  // const [emailTouched, setEmailTouched] = useState(false);
 
-  const needsShowNameError = (): boolean => {
-    if (nameTouched) {
-      if (isNameValid) {
-        return false;
-      } else {
-        return true;
-      }
-    }
-    return false;
-  };
-
-  const needsShowEmailError = (): boolean => {
-    if (emailTouched) {
-      if (isEmailValid) {
-        return false;
-      } else {
-        return true;
-      }
-    }
-    return false;
-  };
+  // const isNameValid = name.trim() !== "";
+  // const isEmailValid = email.includes("@");
+  // const isFormValid = isNameValid && isEmailValid;
+  const isFormValid = nameHook.isValueValid && emailHook.isValueValid;
 
   const onSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setNameTouched(true);
-    setEmailTouched(true);
-    if (!isNameValid || !isEmailValid) {
+    if (!nameHook.isValueValid || !emailHook.isValueValid) {
       return;
     }
 
-    // pretend to submit
-    setName("");
-    setNameTouched(false);
-    setEmail("");
-    setEmailTouched(false);
-  };
-
-  const onNameChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setName(event.target.value);
-    setNameTouched(true);
-  };
-
-  const onEmailChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value);
-    setEmailTouched(true);
-  };
-
-  const onNameBlueHandler = () => {
-    setNameTouched(true);
-  };
-
-  const onEmailBlueHandler = () => {
-    setEmailTouched(true);
+    nameHook.onSubmitted();
+    emailHook.onSubmitted();
   };
 
   return (
@@ -99,11 +62,11 @@ const SimpleForm: React.FC = () => {
           <input
             type="text"
             id="name"
-            value={name}
-            onChange={onNameChangeHandler}
-            onBlur={onNameBlueHandler}
+            value={nameHook.value}
+            onChange={nameHook.onValueChangeHandler}
+            onBlur={nameHook.onValueBlurHandler}
           />
-          {needsShowNameError() && (
+          {nameHook.needsShowValueError() && (
             <ErrorText text="Entered name is not valid" />
           )}
 
@@ -111,11 +74,11 @@ const SimpleForm: React.FC = () => {
           <input
             type="email"
             id="email"
-            value={email}
-            onChange={onEmailChangeHandler}
-            onBlur={onEmailBlueHandler}
+            value={emailHook.value}
+            onChange={emailHook.onValueChangeHandler}
+            onBlur={emailHook.onValueBlurHandler}
           />
-          {needsShowEmailError() && (
+          {emailHook.needsShowValueError() && (
             <ErrorText text="Entered email is not valid" />
           )}
 
