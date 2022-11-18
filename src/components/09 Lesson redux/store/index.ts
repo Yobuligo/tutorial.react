@@ -29,6 +29,4 @@ const reducer: Reducer<IState, IAction> = (
 };
 
 // Create a store and provide the reducer function which should be called whenever an action is dispatched
-const store = redux.createStore(reducer);
-store.dispatch({ type: Action.INCREMENT, counter: 123 });
-store.dispatch({ type: Action.DECREMENT, counter: 123 });
+export const store = redux.createStore(reducer);
