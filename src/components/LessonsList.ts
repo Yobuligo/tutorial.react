@@ -6,6 +6,7 @@ import { LessonFoodOrderApp } from "./05 Lesson Food Order App/LessonFoodOrderAp
 import LessonMovieApp from "./06 Lesson Movie App/LessonMovieApp";
 import LessonCounterApp from "./07 Lesson Counter App/LessonCounterApp";
 import LessonFormsAndUserInput from "./08 Lesson Forms and User Inputs/LessonFormsAndUserInput";
+import { LessonRedux } from "./09 Lesson redux/LessonRedux";
 
 export const lessons = [
   new LessonExpenses(),
@@ -16,4 +17,5 @@ export const lessons = [
   new LessonMovieApp(),
   new LessonCounterApp(),
   new LessonFormsAndUserInput(),
+  new LessonRedux(),
 ];

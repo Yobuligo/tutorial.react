@@ -1,32 +1,36 @@
-import redux, { Reducer } from "redux";
+import { createStore, Reducer } from "redux";
 
-enum Action {
+export enum ReduxAction {
   INCREMENT,
   DECREMENT,
 }
 
-interface IAction {
-  type: Action;
+export interface IReduxAction {
+  type: ReduxAction;
   counter: number;
 }
 
-interface IState {
+export interface IReduxState {
   counter: number;
 }
 
-const reducer: Reducer<IState, IAction> = (
-  state: IState = { counter: 0 },
-  action: IAction
+export const reducer: Reducer<IReduxState, IReduxAction> = (
+  state: IReduxState = { counter: 0 },
+  action: IReduxAction
 ) => {
   switch (action.type) {
-    case Action.INCREMENT: {
+    case ReduxAction.INCREMENT: {
       return { counter: state.counter + 1 };
     }
-    case Action.DECREMENT: {
+    case ReduxAction.DECREMENT: {
       return { counter: state.counter - 1 };
     }
   }
+
+  return state;
 };
 
 // Create a store and provide the reducer function which should be called whenever an action is dispatched
-export const store = redux.createStore(reducer);
+const store = createStore(reducer);
+
+export default store;
