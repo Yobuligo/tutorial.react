@@ -7,6 +7,7 @@ import LessonMovieApp from "./06 Lesson Movie App/LessonMovieApp";
 import LessonCounterApp from "./07 Lesson Counter App/LessonCounterApp";
 import LessonFormsAndUserInput from "./08 Lesson Forms and User Inputs/LessonFormsAndUserInput";
 import { LessonRedux } from "./09 Lesson redux/LessonRedux";
+import { LessonRoutes } from "./10 Lesson Routes/LessonRoutes";
 
 export const lessons = [
   new LessonExpenses(),
@@ -18,4 +19,5 @@ export const lessons = [
   new LessonCounterApp(),
   new LessonFormsAndUserInput(),
   new LessonRedux(),
+  new LessonRoutes(),
 ];
