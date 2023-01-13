@@ -15,6 +15,7 @@ export const Lessons = () => {
           setSelectedLesson(selectedLesson);
         }}
       />
+
       <LessonDetails lesson={selectedLesson} />
     </div>
   );

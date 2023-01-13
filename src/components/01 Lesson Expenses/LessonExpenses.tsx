@@ -4,7 +4,7 @@ import { Expenses } from "./Expenses/Expenses";
 import { NewExpense } from "./NewExpense/NewExpense";
 
 export class LessonExpenses implements ILesson {
-  id: string = "LessonExpenses";
+  id: string = "lessonExpenses";
   title: string = "Lesson Expenses";
 
   component: React.FC = () => {
