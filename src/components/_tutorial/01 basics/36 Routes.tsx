@@ -28,21 +28,14 @@
 // Sometimes it is not only required no navigate within the application by changing the URL but by having links in the url (e.g. a specific header).
 // To provide a Link which not reloads the application the tag "Link" which is part of react-router-dom can be used.
 
-import { BrowserRouter, Link, NavLink, Route } from "react-router-dom";
+import {
+  BrowserRouter,
+  Link,
+  NavLink,
+  Route,
+  useParams,
+} from "react-router-dom";
 import styles from "./36 Routes.module.css";
-
-// Provide the components
-const WelcomeComponent: React.FC = () => {
-  return <h1>Welcome Page</h1>;
-};
-
-const ProductsComponent: React.FC = () => {
-  return <h1>My Products</h1>;
-};
-
-const ContactComponent: React.FC = () => {
-  return <h1>Contact</h1>;
-};
 
 // The following component is responsible for providing the header of a component which contains of the two links "welcome" and "products".
 // By clicking the specific link the underlying route is called. Which means when triggering the link "/welcome" the welcome Route /welcome is called.
@@ -68,6 +61,32 @@ const MainHeader: React.FC = () => {
   );
 };
 
+// Provide the components
+const WelcomeComponent: React.FC = () => {
+  return <h1>Welcome Page</h1>;
+};
+
+const ProductsComponent: React.FC = () => {
+  return <h1>My Products</h1>;
+};
+
+const ContactComponent: React.FC = () => {
+  return <h1>Contact</h1>;
+};
+
+// This component is special. Instead of showing static content it can change its content depending on the provided parameter within the route.
+// E.g. if somebody calls localhost:3000/products/book it only shows the product details of the book or any other product. Maybe you would like to provide a product id.
+// To read the content from the URL there is the custom hook of react-router-dom "useParams".
+const ProductDetails: React.FC = () => {
+  const params = useParams<{ productId: string }>();
+  return (
+    <section>
+      <h1>Product Details</h1>
+      <p>Details of product with id {params.productId}</p>
+    </section>
+  );
+};
+
 // Provide the routes (probably in the App.tsx) to the specific components by providing routes.
 export const RoutesComponent: React.FC = () => {
   return (
@@ -84,6 +103,11 @@ export const RoutesComponent: React.FC = () => {
         </Route>
         <Route path="/contact">
           <ContactComponent />
+        </Route>
+
+        {/* Provides a specific route. The path has a parameter which can be read by the custom hook useParam within the component ProductDetails */}
+        <Route path="/products/:productId">
+          <ProductDetails />
         </Route>
       </body>
     </BrowserRouter>
