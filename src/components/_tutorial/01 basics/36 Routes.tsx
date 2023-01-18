@@ -28,7 +28,8 @@
 // Sometimes it is not only required no navigate within the application by changing the URL but by having links in the url (e.g. a specific header).
 // To provide a Link which not reloads the application the tag "Link" which is part of react-router-dom can be used.
 
-import { BrowserRouter, Link, Route } from "react-router-dom";
+import { BrowserRouter, Link, NavLink, Route } from "react-router-dom";
+import styles from "./36 Routes.module.css";
 
 // Provide the components
 const WelcomeComponent: React.FC = () => {
@@ -39,8 +40,14 @@ const ProductsComponent: React.FC = () => {
   return <h1>My Products</h1>;
 };
 
+const ContactComponent: React.FC = () => {
+  return <h1>Contact</h1>;
+};
+
 // The following component is responsible for providing the header of a component which contains of the two links "welcome" and "products".
 // By clicking the specific link the underlying route is called. Which means when triggering the link "/welcome" the welcome Route /welcome is called.
+//
+// The NavLink is a specialty of Link. It also provides the property "activeClassName" to provide styling information in case a link is current active.
 const MainHeader: React.FC = () => {
   return (
     <header>
@@ -48,7 +55,12 @@ const MainHeader: React.FC = () => {
         <ul>
           <li>
             <Link to="/welcome">Welcome</Link>
+          </li>
+          <li>
             <Link to="/products">Products</Link>
+          </li>
+          <li>
+            <NavLink activeClassName={styles.active} to="/contact"></NavLink>
           </li>
         </ul>
       </nav>
@@ -69,6 +81,9 @@ export const RoutesComponent: React.FC = () => {
         </Route>
         <Route path="/products">
           <ProductsComponent />
+        </Route>
+        <Route path="/contact">
+          <ContactComponent />
         </Route>
       </body>
     </BrowserRouter>
