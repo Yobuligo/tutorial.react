@@ -20,8 +20,15 @@
 // How to enable the routes?
 // To enable the routes it is required to wrap the component in which the routes are required by the component "BrowserRouter". From my point of view it can be considered like a context (useContext).
 // Probably the "BrowserRouter" would normally wrap the App.tsx
+//
+// Saving components which are used for routing
+// To clarify that components are used for routing they are saved in a specific folder which is called "pages".
+//
+// Using links
+// Sometimes it is not only required no navigate within the application by changing the URL but by having links in the url (e.g. a specific header).
+// To provide a Link which not reloads the application the tag "Link" which is part of react-router-dom can be used.
 
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Link, Route } from "react-router-dom";
 
 // Provide the components
 const WelcomeComponent: React.FC = () => {
@@ -32,16 +39,38 @@ const ProductsComponent: React.FC = () => {
   return <h1>My Products</h1>;
 };
 
+// The following component is responsible for providing the header of a component which contains of the two links "welcome" and "products".
+// By clicking the specific link the underlying route is called. Which means when triggering the link "/welcome" the welcome Route /welcome is called.
+const MainHeader: React.FC = () => {
+  return (
+    <header>
+      <nav>
+        <ul>
+          <li>
+            <Link to="/welcome">Welcome</Link>
+            <Link to="/products">Products</Link>
+          </li>
+        </ul>
+      </nav>
+    </header>
+  );
+};
+
 // Provide the routes (probably in the App.tsx) to the specific components by providing routes.
 export const RoutesComponent: React.FC = () => {
   return (
     <BrowserRouter>
-      <Route path="/welcome">
-        <WelcomeComponent />
-      </Route>
-      <Route path="/products">
-        <ProductsComponent />
-      </Route>
+      <header>
+        <MainHeader />
+      </header>
+      <body>
+        <Route path="/welcome">
+          <WelcomeComponent />
+        </Route>
+        <Route path="/products">
+          <ProductsComponent />
+        </Route>
+      </body>
     </BrowserRouter>
   );
 };

@@ -7,7 +7,7 @@
 // Dependencies must not be:
 //  1. the state updating functions (the useState setter)
 //  2. build in APIs like localStorage
-//  3. other variables from outside the component or which are not bind to any component attribute
+//  3. other variables from outside the component or which are not bound to any component attribute
 //
 // Why use useEffect instead of useState?
 // 1. when useEffect is called you can be sure that depended variables really change and that these variables have to correct, current value
