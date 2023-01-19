@@ -6,45 +6,53 @@
 // By package "React Router" it is possible to navigate between pages by changing the URL. The "React Router" takes over the refresh of the page depending on the requested content (Client Side Routing).
 //
 // How to install "React Router"?
-// To install "React Router" use the command "npm install react-router-dom@5" to install 5 of react router, which acts slightly different as the current version 6.
-// In addition install "npm i --save-dev @types/react-router-dom".
-// Finally you should find in the package.json under "dependencies" the following entries:
-// - "@types/react-router-dom": "^5.3.3"
-// - "react-router-dom": "^5.3.4",
+// To install "React Router" use the command "npm install react-router-dom".
 //
 // How to register routes?
-// To register a route the tag "Route" of "React Router" is used. This path needs the property "path" which gives the path under which a specific component is available.
+// Routes are created by using the function createBrowserRouter. This function takes objects that needs the property "path" which gives the path under which a specific component is available.
 // Path only means the extension /<name>. Generally the URL would be "domain.com/<name>", e.g. localhost:3000/welcome.
-// In addition it is required to provide the component which should be displayed by calling the path. The component is provided as child element to the tag "Route"
+// In addition it is required to provide the component which should be displayed by calling the path. The component is provided by property element.
 //
 // How to enable the routes?
-// To enable the routes it is required to wrap the component in which the routes are required by the component "BrowserRouter". From my point of view it can be considered like a context (useContext).
-// Probably the "BrowserRouter" would normally wrap the App.tsx
+// To enable the routes it is required to include the tag "RouterProvider" to you application. The property router is mandatory which is provided by createBrowserRouter.
+// Probably the "RouterProvider" would normally used in the App.tsx
 //
-// Saving components which are used for routing
+// Best practice: save route components in a separate folder
 // To clarify that components are used for routing they are saved in a specific folder which is called "pages".
 //
 // Using links
 // Sometimes it is not only required no navigate within the application by changing the URL but by having links in the url (e.g. a specific header).
 // To provide a Link which not reloads the application the tag "Link" which is part of react-router-dom can be used.
+//
+// Parameterized Routes
+// A route can be defined by using a placeholder. That placeholder is filled during runtime.
+// Such a route has to be provided as /products/:productId
+// The information can be retrieved within the called component via hook useParams.
+//
+// Navigation
+// To navigate to a specific route the hook useNavigate can be used.
 
 import {
-  BrowserRouter,
+  createBrowserRouter,
   Link,
   NavLink,
-  Route,
+  Outlet,
+  RouterProvider,
+  useNavigate,
   useParams,
 } from "react-router-dom";
 import styles from "./36 Routes.module.css";
 
-// The following component is responsible for providing the header of a component which contains of the two links "welcome" and "products".
-// By clicking the specific link the underlying route is called. Which means when triggering the link "/welcome" the welcome Route /welcome is called.
+// The following component is responsible for providing the header component of an application which contains links to the pages welcome, products and contacts.
+// This header is provided for each page. The only thing which is exchanged is the component below which is provided by the tag <Outlet />.
+// By calling the specific URL like /welcome, the tag <Outlet /> displays the component which is provided by the function createBrowserRouter() for that path.
+// The header contains links. By clicking the specific link the underlying route is called. Which means when triggering the link "/welcome" the welcome Route /welcome is called.
 //
-// The NavLink is a specialty of Link. It also provides the property "activeClassName" to provide styling information in case a link is current active.
+// The NavLink is a specialty of Link. By providing the prop "className" styling information can be set depending if the underlying component of that link is currently displayed.
 const MainHeader: React.FC = () => {
   return (
-    <header>
-      <nav>
+    <>
+      <header>
         <ul>
           <li>
             <Link to="/welcome">Welcome</Link>
@@ -53,63 +61,118 @@ const MainHeader: React.FC = () => {
             <Link to="/products">Products</Link>
           </li>
           <li>
-            <NavLink activeClassName={styles.active} to="/contact"></NavLink>
+            {/* Provide style information depending on if the current page is active or not */}
+            <NavLink
+              className={({ isActive }) => {
+                return isActive ? styles.active : "";
+              }}
+              to="/contact"
+            >
+              Contact
+            </NavLink>
           </li>
         </ul>
-      </nav>
-    </header>
+      </header>
+      {/* Outlet is responsible for displaying components for the called route at exactly that position. */}
+      <Outlet />
+    </>
+  );
+};
+
+const ErrorComponent: React.FC = () => {
+  return (
+    <section>
+      <h1>An Error occurred</h1>
+    </section>
   );
 };
 
 // Provide the components
 const WelcomeComponent: React.FC = () => {
-  return <h1>Welcome Page</h1>;
+  return (
+    <section>
+      <h1>Welcome Page</h1>
+    </section>
+  );
 };
 
 const ProductsComponent: React.FC = () => {
-  return <h1>My Products</h1>;
+  return (
+    <section>
+      <h1>Products</h1>
+      <ul>
+        <li>
+          <Link to="/products/book">Book</Link>
+        </li>
+        <li>
+          <Link to="/products/handy">Handy</Link>
+        </li>
+        <li>
+          {/* 
+            The following is a relative path. This means there is no need to say it is located under /products. Instead that is defined by react-router-dom. 
+            Probably that makes it more independent from /products. If /products has to be changed once, Notebook can be displayed anyway, as it path is relative to the new parent path.
+          */}
+          <Link to="notebook">Notebook</Link>
+        </li>
+      </ul>
+    </section>
+  );
 };
 
 const ContactComponent: React.FC = () => {
-  return <h1>Contact</h1>;
+  return (
+    <section>
+      <h1>Contact</h1>
+    </section>
+  );
 };
 
 // This component is special. Instead of showing static content it can change its content depending on the provided parameter within the route.
 // E.g. if somebody calls localhost:3000/products/book it only shows the product details of the book or any other product. Maybe you would like to provide a product id.
 // To read the content from the URL there is the custom hook of react-router-dom "useParams".
-const ProductDetails: React.FC = () => {
+// In addition an example for useNavigate is implemented to navigate to any route.
+const ProductDetailsComponent: React.FC = () => {
+  // Use hook "useParams" to read params from the URL
   const params = useParams<{ productId: string }>();
+  const navigate = useNavigate();
+  const onNavigateBackHandler = () => {
+    navigate("/products");
+  };
   return (
     <section>
       <h1>Product Details</h1>
       <p>Details of product with id {params.productId}</p>
+      {/* by using the hook useNavigate, it is possible to navigate to any route */}
+      <button onClick={onNavigateBackHandler}>back to products</button>
     </section>
   );
 };
 
-// Provide the routes (probably in the App.tsx) to the specific components by providing routes.
+//1. Provide the routes.
+// Here we only have one root route which contains of several children routes.
+// The Root component, which is provided by prop "element" is "MainHeader".
+// In case of an error the ErrorComponent is displayed instead of the default error.
+// The children are separate path which have the same structure as the root path.
+// /products/:productId provides a specific route. The path has a parameter which can be read by the custom hook useParam within the component ProductDetails.
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <MainHeader />,
+    errorElement: <ErrorComponent />,
+    children: [
+      { path: "/welcome", element: <WelcomeComponent /> },
+      { path: "/products", element: <ProductsComponent /> },
+      { path: "/products/:productId", element: <ProductDetailsComponent /> },
+      { path: "/contact", element: <ContactComponent /> },
+    ],
+  },
+]);
+
+// Provide the routes (probably in the App.tsx) to the specific tag RouterProvider.
 export const RoutesComponent: React.FC = () => {
   return (
-    <BrowserRouter>
-      <header>
-        <MainHeader />
-      </header>
-      <body>
-        <Route path="/welcome">
-          <WelcomeComponent />
-        </Route>
-        <Route path="/products">
-          <ProductsComponent />
-        </Route>
-        <Route path="/contact">
-          <ContactComponent />
-        </Route>
-
-        {/* Provides a specific route. The path has a parameter which can be read by the custom hook useParam within the component ProductDetails */}
-        <Route path="/products/:productId">
-          <ProductDetails />
-        </Route>
-      </body>
-    </BrowserRouter>
+    <>
+      <RouterProvider router={router} />
+    </>
   );
 };
