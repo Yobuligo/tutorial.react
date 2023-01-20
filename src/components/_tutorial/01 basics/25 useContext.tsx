@@ -63,16 +63,16 @@ export const UseContextComponentParent: React.FC = () => {
 //    of a state which would trigger an update of all components which refer to that state.
 export const UseContextComponentChild: React.FC = () => {
   const context = useContext(AppContext);
+  const onInputChangeHandler = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    context.onInputChangeHandler(event.target.value);
+  };
   return (
     <>
       <input value={context.attr.toString()} />
       <input value={context.attr2} />
-      <input
-        value={context.attr3}
-        onChange={(event) => {
-          context.onInputChangeHandler(event.target.value);
-        }}
-      />
+      <input value={context.attr3} onChange={onInputChangeHandler} />
       <button onClick={context.onEventHandler}>Click me</button>
     </>
   );
