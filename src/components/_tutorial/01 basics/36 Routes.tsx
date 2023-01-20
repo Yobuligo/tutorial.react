@@ -96,24 +96,35 @@ const WelcomeComponent: React.FC = () => {
   );
 };
 
+// create a list of products
+interface IProduct {
+  id: number;
+  title: string;
+}
+
+const products: IProduct[] = [
+  { id: 1, title: "Book" },
+  { id: 2, title: "Handy" },
+  { id: 3, title: "Notebook" },
+];
+
 const ProductsComponent: React.FC = () => {
   return (
     <section>
       <h1>Products</h1>
       <ul>
-        <li>
-          <Link to="/products/book">Book</Link>
-        </li>
-        <li>
-          <Link to="/products/handy">Handy</Link>
-        </li>
-        <li>
-          {/* 
-            The following is a relative path. This means there is no need to say it is located under /products. Instead that is defined by react-router-dom. 
+        {/* 
+            Create a dynamic list of links.
+            The following are relative paths. This means there is no need to say it is located under /products. Instead that is defined by react-router-dom. 
             Probably that makes it more independent from /products. If /products has to be changed once, Notebook can be displayed anyway, as it path is relative to the new parent path.
           */}
-          <Link to="notebook">Notebook</Link>
-        </li>
+        {products.map((product) => {
+          return (
+            <li key={product.id}>
+              <Link to={product.id.toString()}>{product.title}</Link>
+            </li>
+          );
+        })}
       </ul>
     </section>
   );
