@@ -1,7 +1,9 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import EventDetailPage from "./pages/EventDetailPage";
-import EventPage from "./pages/EventPage";
-import HomePage from "./pages/HomePage";
+import { Card } from "../core/Card/Card";
+import Contact from "./pages/Contact";
+import ProductDetails from "./pages/ProductDetails";
+import Products from "./pages/Products";
+import Welcome from "./pages/Welcome";
 import RootPage from "./RootPage";
 
 const router = createBrowserRouter([
@@ -9,18 +11,22 @@ const router = createBrowserRouter([
     path: "/",
     element: <RootPage />,
     children: [
-      { path: "/homePage", element: <HomePage /> },
-      { path: "/EventPage", element: <EventPage /> },
-      { path: "/EventPage/:eventId", element: <EventDetailPage /> },
+      { path: "welcome", element: <Welcome /> },
+      {
+        path: "products",
+        element: <Products />,
+        children: [{ path: ":productId", element: <ProductDetails /> }],
+      },
+      { path: "contact", element: <Contact /> },
     ],
   },
 ]);
 
 const RoutesApp: React.FC = () => {
   return (
-    <>
+    <Card>
       <RouterProvider router={router} />
-    </>
+    </Card>
   );
 };
 
