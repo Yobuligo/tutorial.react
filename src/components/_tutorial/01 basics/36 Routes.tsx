@@ -182,6 +182,7 @@ const router = createBrowserRouter([
         element: <ProductsComponent />,
         children: [
           // Defines a relative path, which is a child of /products. To display this it is required that the parent component <ProductsComponent /> has an <Outlet /> as well.
+          // This means we nesting components
           { path: ":productId", element: <ProductDetailsComponent /> },
         ],
       },
