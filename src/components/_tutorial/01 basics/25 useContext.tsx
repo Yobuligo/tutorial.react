@@ -13,45 +13,67 @@
 //  2. Provide the useContext to your components. As a context can be provided via JSX, all components which are wrapped by the context can access the context. These components are consumers. They can access but must not access the context.
 //  3. Consume the useContext within a component
 
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 
 const onEventHandler = () => {
   console.log(`Any event was called`);
 };
 
 // 1. Implementation of the context via method createContext. The default properties of the context and the structure are provided. Properties might be variables or functions.
-export const AnyContext = React.createContext({
+export const AppContext = React.createContext<{
+  attr: boolean;
+  attr2: number;
+  attr3: string;
+  onEventHandler: () => void;
+  onInputChangeHandler: (value: string) => void;
+}>({
   attr: true,
   attr2: 123,
   attr3: "something",
   onEventHandler,
+  onInputChangeHandler: (value) => {},
 });
 
 // 2. To provide the context it is embedded within the JSX by ".Provider". All components between the open and closed context tags (between <AnyContext.Provider></AnyContext.Provider>) can access the context properties.
+//    In addition here is place to handle states, like here the input value which is connected to a useState. The inputValue is updated by setInputValue and can be used within other components.
 export const UseContextComponentParent: React.FC = () => {
+  const [inputValue, setInputValue] = useState("");
+
+  const onInputChangeHandler = (value: string): void => {
+    setInputValue(value);
+  };
+
   return (
-    <AnyContext.Provider
+    <AppContext.Provider
       value={{
         attr: true,
         attr2: 123,
         attr3: "something",
         onEventHandler: () => {},
+        onInputChangeHandler: onInputChangeHandler,
       }}
     >
       <UseContextComponentChild />
-    </AnyContext.Provider>
+    </AppContext.Provider>
   );
 };
 
 // 3. to consume the context, the hook function useContext has to called and the context has to be injected to the function. Finally the context properties can be used.
+//    As the states are handled at a central point in the App (or here UserContextComponentParent) the change handler onInputChangeHandler is called and delegates the update
+//    of a state which would trigger an update of all components which refer to that state.
 export const UseContextComponentChild: React.FC = () => {
-  const ctx = useContext(AnyContext);
+  const context = useContext(AppContext);
   return (
     <>
-      <input value={ctx.attr.toString()} />
-      <input value={ctx.attr2} />
-      <input value={ctx.attr3} />
-      <button onClick={ctx.onEventHandler}>Click me</button>
+      <input value={context.attr.toString()} />
+      <input value={context.attr2} />
+      <input
+        value={context.attr3}
+        onChange={(event) => {
+          context.onInputChangeHandler(event.target.value);
+        }}
+      />
+      <button onClick={context.onEventHandler}>Click me</button>
     </>
   );
 };
