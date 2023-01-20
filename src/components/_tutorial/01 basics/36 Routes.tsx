@@ -155,6 +155,9 @@ const ProductDetailsComponent: React.FC = () => {
       <p>Details of product with id {params.productId}</p>
       {/* by using the hook useNavigate, it is possible to navigate to any route */}
       <button onClick={onNavigateBackHandler}>back to products</button>
+
+      {/* An Outlet is required as /products also has children */}
+      <Outlet />
     </section>
   );
 };
@@ -171,9 +174,17 @@ const router = createBrowserRouter([
     element: <MainHeader />,
     errorElement: <ErrorComponent />,
     children: [
+      // "index: true" sets this route as the default route, which will be displayed as fallback
+      { index: true, element: <WelcomeComponent /> },
       { path: "/welcome", element: <WelcomeComponent /> },
-      { path: "/products", element: <ProductsComponent /> },
-      { path: "/products/:productId", element: <ProductDetailsComponent /> },
+      {
+        path: "/products",
+        element: <ProductsComponent />,
+        children: [
+          // Defines a relative path, which is a child of /products. To display this it is required that the parent component <ProductsComponent /> has an <Outlet /> as well.
+          { path: ":productId", element: <ProductDetailsComponent /> },
+        ],
+      },
       { path: "/contact", element: <ContactComponent /> },
     ],
   },
