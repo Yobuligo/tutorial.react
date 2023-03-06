@@ -17,7 +17,7 @@
 // To enable the routes it is required to include the tag "RouterProvider" to you application. The property router is mandatory which is provided by createBrowserRouter.
 // Probably the "RouterProvider" would normally used in the App.tsx
 //
-// Best practice: save route components in a separate folder
+// Best practice: save route components in a separate folder *pages*
 // To clarify that components are used for routing they are saved in a specific folder which is called "pages".
 //
 // Using links
@@ -31,6 +31,10 @@
 //
 // Navigation
 // To navigate to a specific route the hook useNavigate can be used.
+//
+// Load data for a specific route
+// By setting a loader while registering a route, it is possible to provide data to a specific route. E.g. can be loaded by calling a rest call.
+// To retrieve the loaded data within the hook useLoaderData is used.
 
 import {
   createBrowserRouter,
@@ -38,6 +42,7 @@ import {
   NavLink,
   Outlet,
   RouterProvider,
+  useLoaderData,
   useNavigate,
   useParams,
 } from "react-router-dom";
@@ -108,7 +113,19 @@ const products: IProduct[] = [
   { id: 3, title: "Notebook" },
 ];
 
+
+// Provide a loader which is responsible for loading products. The loader should be put close to the *ProductComponent* (below), which means normally in the same file.
+const productLoader = async (): Promise<IProduct[]> => {
+  return await new Promise<IProduct[]>((resolve) => {
+    setTimeout(() => {
+      resolve(products);
+    }, 500);
+  });
+}
+
 const ProductsComponent: React.FC = () => {
+  // use the hook *useLoaderData* to get data from the loader which is defined for that route
+  const products = useLoaderData() as IProduct[];
   return (
     <section>
       <h1>Products</h1>
@@ -180,6 +197,8 @@ const router = createBrowserRouter([
       {
         path: "/products",
         element: <ProductsComponent />,
+        // provide a *loader*, which simulates to execute a rest call and retrieve data which should be displayed within a route
+        loader: productLoader,
         children: [
           // Defines a relative path, which is a child of /products. To display this it is required that the parent component <ProductsComponent /> has an <Outlet /> as well.
           // This means we nesting components
