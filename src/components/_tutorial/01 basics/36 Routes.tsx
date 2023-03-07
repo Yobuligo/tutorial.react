@@ -32,19 +32,26 @@
 // Navigation
 // To navigate to a specific route the hook useNavigate can be used.
 //
-// Load data for a specific route by loader
-// By setting a loader while registering a route, it is possible to provide data to a specific route. E.g. can be loaded by calling a rest call.
-// To retrieve the loaded data within the hook useLoaderData is used.
+// loader:
+//    Load data for a specific route by loader
+//    By setting a loader while registering a route, it is possible to provide data to a specific route. E.g. can be loaded by calling a rest call.
+//    To retrieve the loaded data within the hook useLoaderData is used.
 //
-// Handling loader errors
-// If an error occurs while loading data for a route there are several ways to handle the error. 2 possibilities are:
-// 1. the implemented loader function does not return the data, but an error object like { isError: true, message: "An error occurred" }
-// 2. the implemented loader function throws an exceptions. In that case the component which is set as *errorElement* like *ErrorComponent* is displayed, as the exceptions is caught by the framework.
-// 3. more specific the implemented loader function throws an *Response* exception, which contains a message and HTTP status and HTTP status error details which can be displayed in the *ErrorComponent*.
+//    Handling loader errors
+//    If an error occurs while loading data for a route there are several ways to handle the error. 2 possibilities are:
+//    1. the implemented loader function does not return the data, but an error object like { isError: true, message: "An error occurred" }
+//    2. the implemented loader function throws an exceptions. In that case the component which is set as *errorElement* like *ErrorComponent* is displayed, as the exceptions is caught by the framework.
+//    3. more specific the implemented loader function throws an *Response* exception, which contains a message and HTTP status and HTTP status error details which can be displayed in the *ErrorComponent*.
+//
+//    Handling loader parameters
+//    when loading data it might be required to load a specific entity by its id instead of "all". To get e.g. the :productId of a specific route the loader function provides an object with two properties
+//    1. request - to get the url and general information
+//    2. params - to get information about the params which were handed over
 
 import {
   createBrowserRouter,
   isRouteErrorResponse,
+  json,
   Link,
   NavLink,
   Outlet,
@@ -100,7 +107,7 @@ const ErrorComponent: React.FC = () => {
   let header: string;
   let paragraph: string;
   if (isRouteErrorResponse(error)) {
-    header = JSON.parse(error.data).message;
+    header = error.data.message;
     paragraph = error.statusText;
   } else {
     header = "An error occurred";
@@ -151,8 +158,16 @@ const productLoader = async (): Promise<IProduct[]> => {
       // even better would be to throw a Response error, which can take http-status and http-status-error information and a message.
       // E.g. this can be analyzed by the special hook *useRouteError* to fetch the response information and to show a more meaningful message.
       if (products.length === 0) {
-        throw new Response(
-          JSON.stringify({ message: "Error when loading product data" }),
+        // And here are also two alternatives. First create an instance of Response and throw it or use function json from lib react-router-dom instead. When using that function there is no need to parse the json.
+        // Instead the objects are just handed over
+
+        // throw new Response(
+        //   JSON.stringify({ message: "Error when loading product data" }),
+        //   { status: 500, statusText: "Error when loading product data for " }
+        // );
+
+        throw json(
+          { message: "Error when loading product data" },
           { status: 500, statusText: "Error when loading product data for " }
         );
       }

@@ -4,6 +4,9 @@ import Contact from "./pages/Contact";
 import ErrorComponent from "./pages/ErrorComponent";
 import HandleErrorExample from "./pages/HandleErrorExample";
 import ProductDetails from "./pages/ProductDetails";
+import ProductDetailsComplete, {
+  productDetailsCompleteLoader,
+} from "./pages/ProductDetailsComplete";
 import Products, { productLoader } from "./pages/Products";
 import Welcome from "./pages/Welcome";
 import RootPage from "./RootPage";
@@ -19,7 +22,14 @@ const router = createBrowserRouter([
         path: "products",
         element: <Products />,
         loader: productLoader,
-        children: [{ path: ":productId", element: <ProductDetails /> }],
+        children: [
+          { path: ":productId", element: <ProductDetails /> },
+          {
+            path: "complete/:productId",
+            element: <ProductDetailsComplete />,
+            loader: productDetailsCompleteLoader,
+          },
+        ],
       },
       { path: "contact", element: <Contact /> },
       {
@@ -28,10 +38,13 @@ const router = createBrowserRouter([
         loader: async () => {
           // simulate an error which might occurs when fetching data from the backend
           // Error is analyzed within component *HandleErrorExample*
-          throw new Response(JSON.stringify({ message: "Loading route data" }), {
-            status: 500,
-            statusText: "Simulated error when loading route data by loader."
-          });
+          throw new Response(
+            JSON.stringify({ message: "Loading route data" }),
+            {
+              status: 500,
+              statusText: "Simulated error when loading route data by loader.",
+            }
+          );
         },
       },
     ],
