@@ -40,9 +40,11 @@
 // If an error occurs while loading data for a route there are several ways to handle the error. 2 possibilities are:
 // 1. the implemented loader function does not return the data, but an error object like { isError: true, message: "An error occurred" }
 // 2. the implemented loader function throws an exceptions. In that case the component which is set as *errorElement* like *ErrorComponent* is displayed, as the exceptions is caught by the framework.
+// 3. more specific the implemented loader function throws an *Response* exception, which contains a message and HTTP status and HTTP status error details which can be displayed in the *ErrorComponent*.
 
 import {
   createBrowserRouter,
+  isRouteErrorResponse,
   Link,
   NavLink,
   Outlet,
@@ -50,6 +52,7 @@ import {
   useLoaderData,
   useNavigate,
   useParams,
+  useRouteError,
 } from "react-router-dom";
 import styles from "./36 Routes.module.css";
 
@@ -89,10 +92,25 @@ const MainHeader: React.FC = () => {
   );
 };
 
+/**
+ * This component is displayed when error occurs, e.g. in case an unknown route is called or if a *loader* throws and exceptions which should be displayed with this component
+ */
 const ErrorComponent: React.FC = () => {
+  const error = useRouteError() as Response;
+  let header: string;
+  let paragraph: string;
+  if (isRouteErrorResponse(error)) {
+    header = JSON.parse(error.data).message;
+    paragraph = error.statusText;
+  } else {
+    header = "An error occurred";
+    paragraph = "An unknown error occurred";
+  }
+
   return (
     <section>
-      <h1>An Error occurred</h1>
+      <h1>{header}</h1>
+      <p>{paragraph}</p>
     </section>
   );
 };
@@ -128,6 +146,15 @@ const productLoader = async (): Promise<IProduct[]> => {
       // It just simulates how to handle errors. In that case the component which is set as *errorComponent* is displayed
       if (products.length === 0) {
         throw new Error("Error when loading product data.");
+      }
+
+      // even better would be to throw a Response error, which can take http-status and http-status-error information and a message.
+      // E.g. this can be analyzed by the special hook *useRouteError* to fetch the response information and to show a more meaningful message.
+      if (products.length === 0) {
+        throw new Response(
+          JSON.stringify({ message: "Error when loading product data" }),
+          { status: 500, statusText: "Error when loading product data for " }
+        );
       }
 
       // As alternative to the upper thrown exception is to return an object which can be handled individual from the corresponding component, which needs the loader data.

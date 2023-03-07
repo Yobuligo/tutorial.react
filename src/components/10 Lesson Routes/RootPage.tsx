@@ -23,6 +23,9 @@ const RootPage: React.FC = () => {
           <li>
             <Link to="contact">Contact</Link>
           </li>
+          <li>
+            <Link to="handleErrors">Handle Errors</Link>
+          </li>          
         </ul>
       </header>
       <Outlet />
