@@ -48,27 +48,53 @@
  *    when loading data it might be required to load a specific entity by its id instead of "all". To get e.g. the :productId of a specific route the loader function provides an object with two properties
  *    1. request - to get the url and general information
  *    2. params - to get information about the params which were handed over
- * 
- * action: 
+ *
+ *    Defer (zurückstellen, schieben)
+ *    As loading might need some time there is the possibility to display a loading spinner. But what if we already want to display some content?
+ *    There are the special components <Await> and <Suspend>
+ *    Await can be used to await a loading result. As soon as it is loaded it will be returned and the content can be displayed
+ *    Suspend is used as a bracket around Await and provides the possibility to show a fallback.
+ *    It only works when the loader returns a refer with the expected data "refer({ persons: Promise<person[]> })"
+ *
+ * action:
+ *    Execute an action for a specific route
  *    provide action coding that should be executed for a specific route.
- *    It is coupled to the react-router-dom component *{@link Form}*, which has a http method like POST, PATCH, DELETE. 
+ *    It is coupled to the react-router-dom component *{@link Form}*, which has a http method like POST, PATCH, DELETE.
  *    Therefore each input field must have a name which finally can be accessed in the implementing action via parameter request by calling request.formData()
  *    Those data can be used to e.g. send a request to the backend with the set http method.
+ *
+ *    trigger an action
+ *    Not always there is a form which can be submitted (e.g. with button type:submit). E.g. when deleting an object there is a confirm popup window.confirm(). And only if the deletion was confirmed the action should be executed.
+ *    The execution can be trigger via useSubmit()
+ *
+ *    Validation
+ *    Actions like updating and deleting might fail (e.g. because of an invalid productId). To give the user feedback about the error the hook useActionData can be used.
+ *    Probably useActionData can also be used for success messages etc.
+ *
+ * Display loading spinner
+ * For loaders as well as for actions there might be a delay for its execution. Data have to be fetched from a server, a deletion has to be executed.
+ * To display a loading spinner in those cases the useNavigation hook can be used. It provides a state, which tells us if a submit runs or data gets loaded. In this case simple show a loading spinner.
  */
 
 import {
+  ActionFunction,
   createBrowserRouter,
+  Form,
   isRouteErrorResponse,
   json,
   Link,
   LoaderFunction,
   NavLink,
   Outlet,
+  redirect,
   RouterProvider,
+  useActionData,
   useLoaderData,
   useNavigate,
+  useNavigation,
   useParams,
   useRouteError,
+  useSubmit,
 } from "react-router-dom";
 import styles from "./36 Routes.module.css";
 
@@ -235,12 +261,67 @@ const ProductsComponent: React.FC = () => {
   );
 };
 
+/**
+ * This component is a special component to create or update products.
+ * It contains of a special form from react-router-dom, which provides the possibility to send actions.
+ * Submitting then triggers the execution of an action of the corresponding route. In that route the submitted data can be retrieved.
+ * The submitted action is a http action. Therefore the property *method* must be provided.
+ * Important is to provide an input field name, which is required to access the input field values later in e.g. function {@link createProductAction}.
+ */
+const ModifyProductComponent: React.FC = () => {
+  return (
+    <Form method="post">
+      <label htmlFor="id">Product Id</label>
+      <input type="text" id="id" name="id" />
+      <label htmlFor="title">Product Title</label>
+      <input type="text" id="title" name="title" />
+      <label htmlFor="description">Product Description</label>
+      <input type="text" id="description" name="description" />
+      <button type="submit">Create</button>
+    </Form>
+  );
+};
+
+/**
+ * This action function is used to create a new product. Therefore component *{@link ModifyProductComponent}* submits the data which are required to create an object.
+ * The function formData returns an object which provides access to the input field values.
+ * The data are used to create a new product instance and submit the data to e.g. the backend.
+ * An action MUST return a value. This might be the object, but it is also possible to redirect to another path.
+ */
+const createProductAction: ActionFunction = async ({ request }) => {
+  const formData = await request.formData();
+  const product: IProduct = {
+    id: +(formData.get("id") as string),
+    title: formData.get("title") as string,
+    description: formData.get("description") as string,
+  };
+  // ... send the product to the backend
+  return redirect("/products");
+};
+
 const ContactComponent: React.FC = () => {
   return (
     <section>
       <h1>Contact</h1>
     </section>
   );
+};
+
+/**
+ * This action function is used for deleting a product.
+ * Therefore it gets the product Id as params (because it belongs to the route completeProduct/:productId, which provides the productId).
+ * In addition it provides a request object that contains the e.g. the http method. This object was provided with useSubmit(null, { method: "delete" } ) in the component ProductDetailsCompleteComponent.
+ * As already mentioned each action has to return an object, here we use it again to redirect to the products path, as the current product was deleted.
+ * Anyway the return type can also be used to provided error information, like here in case that the wrong http-method was triggered. The information of the returned data can be retrieved via hook *useActionData*.
+ */
+const deleteProductAction: ActionFunction = ({ request, params }) => {
+  if (request.method !== "delete") {
+    return new Error("Wrong http method was used.");
+  }
+
+  const productId = (params as { productId: string }).productId;
+  // ... execute the deletion for the corresponding productId
+  return redirect("/products");
 };
 
 // This component is special. Instead of showing static content it can change its content depending on the provided parameter within the route.
@@ -273,12 +354,40 @@ const ProductDetailsComponent: React.FC = () => {
 const ProductDetailsCompleteComponent: React.FC = () => {
   // By using the hook useLoaderData the specific product is returned from loader which was handed over to the route
   const product = useLoaderData() as IProduct;
+
+  // The hook useNavigation can be used to get the state of a route, is it currently loading, submitting or idling?
+  // This can be used to show a loading spinner in case the data are currently loaded.
+  const navigation = useNavigation();
+  const showLoadingSpinner =
+    navigation.state === "loading" ? <p>... loading</p> : "";
+
+  // By using the hook useSubmit it is possible to submit data to trigger an action. Differently to the react-router-dom Form useSubmit provides more control what and when data should be submitted.
+  // Required e.g. when confirming data
+  const submit = useSubmit();
+  const onDeleteHandler = () => {
+    if (window.confirm("Delete product?")) {
+      // when submitting it is possible to either set the target (the input field) or null and additional submit options like the http method. Finally that object can be access within the action via parameter request.
+      submit(null, { method: "delete" });
+    }
+  };
+
+  // Action data can be used to return something out of the action. Here it is used for providing error data from the action to display the error.
+  // E.g. when deleting a productId and the backend returned an error code it can be displayed that the deletion didn't work e.g. because of an wrong product id
+  const actionData = useActionData();
+  let showError = "";
+  if (actionData) {
+    showError = (actionData as Error).message;
+  }
+
   return (
     <>
+      {showLoadingSpinner}
       <h1>
         {product.title} (${product.id})
       </h1>
       <p>{product.description}</p>
+      <button onClick={onDeleteHandler}>Delete</button>
+      {showError}
     </>
   );
 };
@@ -312,6 +421,12 @@ const router = createBrowserRouter([
             path: "completeProduct/:productId",
             element: <ProductDetailsCompleteComponent />,
             loader: completeProductLoader,
+            action: deleteProductAction,
+          },
+          {
+            path: "newProduct",
+            element: <ModifyProductComponent />,
+            action: createProductAction,
           },
         ],
       },
