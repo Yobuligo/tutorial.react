@@ -3,6 +3,7 @@ import {
   useNavigate,
   useRouteError,
 } from "react-router-dom";
+import RootPage from "../RootPage";
 
 const ErrorComponent: React.FC = () => {
   const error = useRouteError();
@@ -20,6 +21,7 @@ const ErrorComponent: React.FC = () => {
   const navigate = useNavigate();
   return (
     <>
+      <RootPage />
       <h1>{header}</h1>
       <p>{paragraph}</p>
       <button

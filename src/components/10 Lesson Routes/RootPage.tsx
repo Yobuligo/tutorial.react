@@ -1,4 +1,5 @@
-import { Link, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import MenuItem from "./components/MenuItem";
 import styles from "./RootPage.module.css";
 
 const RootPage: React.FC = () => {
@@ -13,20 +14,12 @@ const RootPage: React.FC = () => {
             Or click on the links below and have a look at the url of the page
           </p>
         </div>
-        <ul>
-          <li>
-            <Link to="welcome">Welcome</Link>
-          </li>
-          <li>
-            <Link to="products">Products</Link>
-          </li>
-          <li>
-            <Link to="contact">Contact</Link>
-          </li>
-          <li>
-            <Link to="handleErrors">Handle Errors</Link>
-          </li>          
-        </ul>
+        <div className={styles.menu}>
+          <MenuItem title="Welcome" path="welcome" />
+          <MenuItem title="Products" path="products" />
+          <MenuItem title="Contact" path="contact" />
+          <MenuItem title="Handle Error" path="handleErrors" />
+        </div>
       </header>
       <Outlet />
     </>
