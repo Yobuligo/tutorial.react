@@ -53,6 +53,7 @@ import {
   isRouteErrorResponse,
   json,
   Link,
+  LoaderFunction,
   NavLink,
   Outlet,
   RouterProvider,
@@ -135,12 +136,17 @@ const WelcomeComponent: React.FC = () => {
 interface IProduct {
   id: number;
   title: string;
+  description: string;
 }
 
 const products: IProduct[] = [
-  { id: 1, title: "Book" },
-  { id: 2, title: "Handy" },
-  { id: 3, title: "Notebook" },
+  { id: 1, title: "Book", description: "Nice for relaxing" },
+  { id: 2, title: "Handy", description: "Stay in contact with your friends" },
+  {
+    id: 3,
+    title: "Notebook",
+    description: "Enjoy your free time by playing games and watching videos",
+  },
 ];
 
 // Provide a loader which is responsible for loading products. The loader should be put close to the *ProductComponent* (below), which means normally in the same file.
@@ -180,6 +186,13 @@ const productLoader = async (): Promise<IProduct[]> => {
       resolve(products);
     }, 500);
   });
+};
+
+// This is a loader which is specific for loading a certain product by its Id.
+// Therefore the loader function provides the parameters request and params to get the :productId which should be loaded
+const completeProductLoader: LoaderFunction = ({ request, params }) => {
+  const productId = +(params as { productId: string }).productId;
+  return products.find((product) => product.id === productId);
 };
 
 const ProductsComponent: React.FC = () => {
@@ -238,6 +251,22 @@ const ProductDetailsComponent: React.FC = () => {
   );
 };
 
+/**
+ * A component which gets a whole product and shows its content
+ */
+const ProductDetailsCompleteComponent: React.FC = () => {
+  // By using the hook useLoaderData the specific product is returned from loader which was handed over to the route
+  const product = useLoaderData() as IProduct;
+  return (
+    <>
+      <h1>
+        {product.title} (${product.id})
+      </h1>
+      <p>{product.description}</p>
+    </>
+  );
+};
+
 //1. Provide the routes.
 // Here we only have one root route which contains of several children routes.
 // The Root component, which is provided by prop "element" is "MainHeader".
@@ -262,6 +291,12 @@ const router = createBrowserRouter([
           // Defines a relative path, which is a child of /products. To display this it is required that the parent component <ProductsComponent /> has an <Outlet /> as well.
           // This means we nesting components
           { path: ":productId", element: <ProductDetailsComponent /> },
+          // Provides a loader that get the :productId as parameter in its loader function to load the required product
+          {
+            path: "completeProduct/:productId",
+            element: <ProductDetailsCompleteComponent />,
+            loader: completeProductLoader,
+          },
         ],
       },
       { path: "/contact", element: <ContactComponent /> },
