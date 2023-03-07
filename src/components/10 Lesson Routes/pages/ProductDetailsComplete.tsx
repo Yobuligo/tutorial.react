@@ -2,7 +2,9 @@ import {
   ActionFunction,
   LoaderFunction,
   redirect,
+  useActionData,
   useLoaderData,
+  useNavigation,
   useSubmit,
 } from "react-router-dom";
 import { IProduct } from "../model/IProduct";
@@ -34,6 +36,11 @@ export const productDetailsDeleteAction: ActionFunction = async ({
   request,
   params,
 }) => {
+  if (request.method === "PATCH") {
+    return new Error(
+      "Error when deleting action. Invalid http method for deleting."
+    );
+  }
   const productId = (params as { productId: string }).productId;
   Product.delete(productId);
   return redirect("/products");
@@ -46,6 +53,8 @@ const ProductDetailsComplete: React.FC = () => {
     ? product.path
     : `http://localhost:3000/assets/${product.path}`;
 
+  const navigation = useNavigation();
+
   const submit = useSubmit();
 
   const onDeleteHandler = () => {
@@ -54,22 +63,39 @@ const ProductDetailsComplete: React.FC = () => {
     }
   };
 
-  return (
-    <section className={styles.innerCard}>
-      <div>
-        <div className={styles.productDetailsComplete}>
-          <img width="100" height="100" src={imagePath} alt={product.title} />
-          <div className={styles.header}>
-            <h1>
-              {product.title} ({product.id})
-            </h1>
+  const onDeleteWithErrorHandler = () => {
+    submit(null, { method: "patch" });
+  };
+
+  let actionError = "";
+  const actionData = useActionData();
+  if (actionData) {
+    actionError = (actionData as Error).message;
+  }
+
+  const content =
+    navigation.state === "loading" ? (
+      <div>... loading data</div>
+    ) : (
+      <>
+        <>
+          <div className={styles.productDetailsComplete}>
+            <img width="100" height="100" src={imagePath} alt={product.title} />
+            <div className={styles.header}>
+              <h1>
+                {product.title} ({product.id})
+              </h1>
+            </div>
           </div>
-        </div>
-      </div>
-      <p>{product.description}</p>
-      <button onClick={onDeleteHandler}>Delete</button>
-    </section>
-  );
+        </>
+        <p>{product.description}</p>
+        <p className={styles.error}>{actionError}</p>
+        <button onClick={onDeleteHandler}>Delete</button>
+        <button onClick={onDeleteWithErrorHandler}>Delete with Error</button>
+      </>
+    );
+
+  return <section className={styles.innerCard}>{content}</section>;
 };
 
 export default ProductDetailsComplete;
