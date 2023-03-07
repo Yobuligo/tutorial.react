@@ -42,6 +42,16 @@ export class Product implements IProduct {
     public path: string
   ) {}
 
+  static delete(id: string): boolean {
+    const product = this.products.find((product) => product.id === id);
+    if (product) {
+      this.products.splice(this.products.indexOf(product), 1);
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   static findById(id: string): IProduct | undefined {
     for (const product of this.findAll()) {
       if (product.id === id) {

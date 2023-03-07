@@ -1,4 +1,8 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  redirect,
+  RouterProvider,
+} from "react-router-dom";
 import { Card } from "../core/Card/Card";
 import Contact from "./pages/Contact";
 import ErrorComponent from "./pages/ErrorComponent";
@@ -6,7 +10,7 @@ import HandleErrorExample from "./pages/HandleErrorExample";
 import ModifyProduct, { modifyProductAction } from "./pages/ModifyProduct";
 import ProductDetails from "./pages/ProductDetails";
 import ProductDetailsComplete, {
-  productDetailsCompleteLoader,
+  productDetailsCompleteLoader, productDetailsDeleteAction,
 } from "./pages/ProductDetailsComplete";
 import Products, { productLoader } from "./pages/Products";
 import Welcome from "./pages/Welcome";
@@ -29,6 +33,7 @@ const router = createBrowserRouter([
             path: "complete/:productId",
             element: <ProductDetailsComplete />,
             loader: productDetailsCompleteLoader,
+            action: productDetailsDeleteAction,
           },
           {
             path: "newProduct",
