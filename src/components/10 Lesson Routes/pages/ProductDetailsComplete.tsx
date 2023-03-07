@@ -1,6 +1,7 @@
 import { LoaderFunction, useLoaderData } from "react-router-dom";
 import { IProduct } from "../model/IProduct";
 import { Product } from "../model/Product";
+import styles from "./ProductDetailsComplete.module.css";
 
 const error = (message: string): never => {
   throw new Error(message);
@@ -26,10 +27,22 @@ export const productDetailsCompleteLoader: LoaderFunction = async ({
 const ProductDetailsComplete: React.FC = () => {
   const product = useLoaderData() as IProduct;
   return (
-    <section>
-      <h1>
-        {product.title} ({product.id})
-      </h1>
+    <section className={styles.innerCard}>
+      <div>
+        <div className={styles.productDetailsComplete}>
+          <img
+            width="100"
+            height="100"
+            src={`http://localhost:3000/assets/${product.path}`}
+            alt={product.title}
+          />
+          <div className={styles.header}>
+            <h1>
+              {product.title} ({product.id})
+            </h1>
+          </div>
+        </div>
+      </div>
       <p>{product.description}</p>
     </section>
   );

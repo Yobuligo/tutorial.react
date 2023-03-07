@@ -1,52 +1,60 @@
-// As a React Application is a single page application (SPA) there is no need to provide several HTML files for different pages which are loaded on demand.
-// Instead the whole application is transmitted to the client and by click events and input events the content of the page change.
-// But what if we want to use the possibility to navigate between pages by using /<name>? within the URL?
-// Here routing comes to place.
-//
-// By package "React Router" it is possible to navigate between pages by changing the URL. The "React Router" takes over the refresh of the page depending on the requested content (Client Side Routing).
-//
-// How to install "React Router"?
-// To install "React Router" use the command "npm install react-router-dom".
-//
-// How to register routes?
-// Routes are created by using the function createBrowserRouter. This function takes objects that needs the property "path" which gives the path under which a specific component is available.
-// Path only means the extension /<name>. Generally the URL would be "domain.com/<name>", e.g. localhost:3000/welcome.
-// In addition it is required to provide the component which should be displayed by calling the path. The component is provided by property element.
-//
-// How to enable the routes?
-// To enable the routes it is required to include the tag "RouterProvider" to you application. The property router is mandatory which is provided by createBrowserRouter.
-// Probably the "RouterProvider" would normally used in the App.tsx
-//
-// Best practice: save route components in a separate folder *pages*
-// To clarify that components are used for routing they are saved in a specific folder which is called "pages".
-//
-// Using links
-// Sometimes it is not only required no navigate within the application by changing the URL but by having links in the url (e.g. a specific header).
-// To provide a Link which not reloads the application the tag "Link" which is part of react-router-dom can be used.
-//
-// Parameterized Routes
-// A route can be defined by using a placeholder. That placeholder is filled during runtime.
-// Such a route has to be provided as /products/:productId
-// The information can be retrieved within the called component via hook useParams.
-//
-// Navigation
-// To navigate to a specific route the hook useNavigate can be used.
-//
-// loader:
-//    Load data for a specific route by loader
-//    By setting a loader while registering a route, it is possible to provide data to a specific route. E.g. can be loaded by calling a rest call.
-//    To retrieve the loaded data within the hook useLoaderData is used.
-//
-//    Handling loader errors
-//    If an error occurs while loading data for a route there are several ways to handle the error. 2 possibilities are:
-//    1. the implemented loader function does not return the data, but an error object like { isError: true, message: "An error occurred" }
-//    2. the implemented loader function throws an exceptions. In that case the component which is set as *errorElement* like *ErrorComponent* is displayed, as the exceptions is caught by the framework.
-//    3. more specific the implemented loader function throws an *Response* exception, which contains a message and HTTP status and HTTP status error details which can be displayed in the *ErrorComponent*.
-//
-//    Handling loader parameters
-//    when loading data it might be required to load a specific entity by its id instead of "all". To get e.g. the :productId of a specific route the loader function provides an object with two properties
-//    1. request - to get the url and general information
-//    2. params - to get information about the params which were handed over
+/**
+ * As a React Application is a single page application (SPA) there is no need to provide several HTML files for different pages which are loaded on demand.
+ * Instead the whole application is transmitted to the client and by click events and input events the content of the page change.
+ * But what if we want to use the possibility to navigate between pages by using /<name>? within the URL?
+ * Here routing comes to place.
+ *
+ * By package "React Router" it is possible to navigate between pages by changing the URL. The "React Router" takes over the refresh of the page depending on the requested content (Client Side Routing).
+ *
+ * How to install "React Router"?
+ * To install "React Router" use the command "npm install react-router-dom".
+ *
+ * How to register routes?
+ * Routes are created by using the function createBrowserRouter. This function takes objects that needs the property "path" which gives the path under which a specific component is available.
+ * Path only means the extension /<name>. Generally the URL would be "domain.com/<name>", e.g. localhost:3000/welcome.
+ * In addition it is required to provide the component which should be displayed by calling the path. The component is provided by property element.
+ *
+ * How to enable the routes?
+ * To enable the routes it is required to include the tag "RouterProvider" to you application. The property router is mandatory which is provided by createBrowserRouter.
+ * Probably the "RouterProvider" would normally used in the App.tsx
+ *
+ * Best practice: save route components in a separate folder *pages*
+ * To clarify that components are used for routing they are saved in a specific folder which is called "pages".
+ *
+ * Using links
+ * Sometimes it is not only required no navigate within the application by changing the URL but by having links in the url (e.g. a specific header).
+ * To provide a Link which not reloads the application the tag "Link" which is part of react-router-dom can be used.
+ *
+ * Parameterized Routes
+ * A route can be defined by using a placeholder. That placeholder is filled during runtime.
+ * Such a route has to be provided as /products/:productId
+ * The information can be retrieved within the called component via hook useParams.
+ *
+ * Navigation
+ * To navigate to a specific route the hook useNavigate can be used.
+ *
+ * loader:
+ *    Load data for a specific route by loader
+ *    By setting a loader while registering a route, it is possible to provide data to a specific route. E.g. can be loaded by calling a rest call.
+ *    To retrieve the loaded data within the hook useLoaderData is used.
+ *
+ *    Handling loader errors
+ *    If an error occurs while loading data for a route there are several ways to handle the error. 2 possibilities are:
+ *    1. the implemented loader function does not return the data, but an error object like { isError: true, message: "An error occurred" }
+ *    2. the implemented loader function throws an exceptions. In that case the component which is set as *errorElement* like *ErrorComponent* is displayed, as the exceptions is caught by the framework.
+ *    3. more specific the implemented loader function throws an *Response* exception, which contains a message and HTTP status and HTTP status error details which can be displayed in the *ErrorComponent*.
+ *
+ *    Handling loader parameters
+ *    when loading data it might be required to load a specific entity by its id instead of "all". To get e.g. the :productId of a specific route the loader function provides an object with two properties
+ *    1. request - to get the url and general information
+ *    2. params - to get information about the params which were handed over
+ * 
+ * action: 
+ *    provide action coding that should be executed for a specific route.
+ *    It is coupled to the react-router-dom component *{@link Form}*, which has a http method like POST, PATCH, DELETE. 
+ *    Therefore each input field must have a name which finally can be accessed in the implementing action via parameter request by calling request.formData()
+ *    Those data can be used to e.g. send a request to the backend with the set http method.
+ */
 
 import {
   createBrowserRouter,
@@ -64,12 +72,14 @@ import {
 } from "react-router-dom";
 import styles from "./36 Routes.module.css";
 
-// The following component is responsible for providing the header component of an application which contains links to the pages welcome, products and contacts.
-// This header is provided for each page. The only thing which is exchanged is the component below which is provided by the tag <Outlet />.
-// By calling the specific URL like /welcome, the tag <Outlet /> displays the component which is provided by the function createBrowserRouter() for that path.
-// The header contains links. By clicking the specific link the underlying route is called. Which means when triggering the link "/welcome" the welcome Route /welcome is called.
-//
-// The NavLink is a specialty of Link. By providing the prop "className" styling information can be set depending if the underlying component of that link is currently displayed.
+/**
+ * The following component is responsible for providing the header component of an application which contains links to the pages welcome, products and contacts.
+ * This header is provided for each page. The only thing which is exchanged is the component below which is provided by the tag <Outlet />.
+ * By calling the specific URL like /welcome, the tag <Outlet /> displays the component which is provided by the function createBrowserRouter() for that path.
+ * The header contains links. By clicking the specific link the underlying route is called. Which means when triggering the link "/welcome" the welcome Route /welcome is called.
+ *
+ * The NavLink is a specialty of Link. By providing the prop "className" styling information can be set depending if the underlying component of that link is currently displayed.
+ */
 const MainHeader: React.FC = () => {
   return (
     <>
@@ -123,7 +133,9 @@ const ErrorComponent: React.FC = () => {
   );
 };
 
-// Provide the components
+/**
+ * Provide component
+ */
 const WelcomeComponent: React.FC = () => {
   return (
     <section>
@@ -132,7 +144,9 @@ const WelcomeComponent: React.FC = () => {
   );
 };
 
-// create a list of products
+/**
+ * Represents a product
+ */
 interface IProduct {
   id: number;
   title: string;
@@ -149,9 +163,11 @@ const products: IProduct[] = [
   },
 ];
 
-// Provide a loader which is responsible for loading products. The loader should be put close to the *ProductComponent* (below), which means normally in the same file.
-// There is no need to provide directly the returning type like IProduct[]. Instead a Promise or an object of type *Response* can be returned. The Hook useLoaderData will expose the real data.
-// Important to know: This function is a browser function, which means it is possible to access all functions which only exists on client side, like e.g. localStorage to handle cookies.
+/**
+ * Provide a loader which is responsible for loading products. The loader should be put close to the *ProductComponent* (below), which means normally in the same file.
+ * There is no need to provide directly the returning type like IProduct[]. Instead a Promise or an object of type *Response* can be returned. The Hook useLoaderData will expose the real data.
+ * Important to know: This function is a browser function, which means it is possible to access all functions which only exists on client side, like e.g. localStorage to handle cookies.
+ */
 const productLoader = async (): Promise<IProduct[]> => {
   return await new Promise<IProduct[]>((resolve) => {
     setTimeout(() => {

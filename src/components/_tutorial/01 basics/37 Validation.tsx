@@ -9,7 +9,7 @@
  * 2. When pressing the submit button it becomes invalid
  * 3. when entering the input and directly leaving the input (losing focus), it becomes invalid
  * 4. when entering a value the state changed from valid to invalid. Depending on the input
- */
+*/
 const Validation: React.FC = () => {
   return <></>;
 };
