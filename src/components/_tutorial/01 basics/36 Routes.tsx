@@ -32,9 +32,14 @@
 // Navigation
 // To navigate to a specific route the hook useNavigate can be used.
 //
-// Load data for a specific route
+// Load data for a specific route by loader
 // By setting a loader while registering a route, it is possible to provide data to a specific route. E.g. can be loaded by calling a rest call.
 // To retrieve the loaded data within the hook useLoaderData is used.
+//
+// Handling loader errors
+// If an error occurs while loading data for a route there are several ways to handle the error. 2 possibilities are:
+// 1. the implemented loader function does not return the data, but an error object like { isError: true, message: "An error occurred" }
+// 2. the implemented loader function throws an exceptions. In that case the component which is set as *errorElement* like *ErrorComponent* is displayed, as the exceptions is caught by the framework.
 
 import {
   createBrowserRouter,
@@ -113,15 +118,27 @@ const products: IProduct[] = [
   { id: 3, title: "Notebook" },
 ];
 
-
 // Provide a loader which is responsible for loading products. The loader should be put close to the *ProductComponent* (below), which means normally in the same file.
+// There is no need to provide directly the returning type like IProduct[]. Instead a Promise or an object of type *Response* can be returned. The Hook useLoaderData will expose the real data.
+// Important to know: This function is a browser function, which means it is possible to access all functions which only exists on client side, like e.g. localStorage to handle cookies.
 const productLoader = async (): Promise<IProduct[]> => {
   return await new Promise<IProduct[]>((resolve) => {
     setTimeout(() => {
+      // Here an exception is thrown when the products list is empty.
+      // It just simulates how to handle errors. In that case the component which is set as *errorComponent* is displayed
+      if (products.length === 0) {
+        throw new Error("Error when loading product data.");
+      }
+
+      // As alternative to the upper thrown exception is to return an object which can be handled individual from the corresponding component, which needs the loader data.
+      if (products.length === 0) {
+        return { isError: true, message: "Error when loading product data." };
+      }
+
       resolve(products);
     }, 500);
   });
-}
+};
 
 const ProductsComponent: React.FC = () => {
   // use the hook *useLoaderData* to get data from the loader which is defined for that route
