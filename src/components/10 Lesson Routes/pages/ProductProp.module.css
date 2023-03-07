@@ -1,0 +1,8 @@
+.productProp {
+  margin: 1rem;
+}
+
+.productProp input {
+  font-size: larger;
+  border-radius: 6px;
+}
