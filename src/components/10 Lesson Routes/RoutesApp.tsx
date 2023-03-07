@@ -3,7 +3,7 @@ import { Card } from "../core/Card/Card";
 import Contact from "./pages/Contact";
 import ErrorComponent from "./pages/ErrorComponent";
 import HandleErrorExample from "./pages/HandleErrorExample";
-import ModifyProduct, { modifyProductAction } from "./pages/NewProduct";
+import ModifyProduct, { modifyProductAction } from "./pages/ModifyProduct";
 import ProductDetails from "./pages/ProductDetails";
 import ProductDetailsComplete, {
   productDetailsCompleteLoader,
@@ -32,7 +32,7 @@ const router = createBrowserRouter([
           },
           {
             path: "newProduct",
-            element: <ModifyProduct method="post" />,
+            element: <ModifyProduct method="post" provideImage={true} />,
             action: modifyProductAction,
           },
         ],

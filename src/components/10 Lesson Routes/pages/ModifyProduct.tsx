@@ -16,7 +16,12 @@ export const modifyProductAction: ActionFunction = async ({ request }) => {
   return redirect("/products");
 };
 
-const ModifyProduct: React.FC<{ method: FormMethod }> = (props) => {
+const ModifyProduct: React.FC<{ method: FormMethod; provideImage: boolean }> = (
+  props
+) => {
+  const imagePath = props.provideImage
+    ? "https://cdn-icons-png.flaticon.com/512/4129/4129437.png"
+    : "";
   return (
     <Card>
       <Form method={props.method}>
@@ -24,7 +29,11 @@ const ModifyProduct: React.FC<{ method: FormMethod }> = (props) => {
         <ProductProp id="id" caption="Id" />
         <ProductProp id="title" caption="Title" />
         <ProductProp id="description" caption="Description" />
-        <ProductProp id="path" caption="Path" />
+        <ProductProp
+          id="path"
+          caption="Path"
+          value={props.provideImage ? imagePath : ""}
+        />
         <button type="submit">Save</button>
       </Form>
     </Card>

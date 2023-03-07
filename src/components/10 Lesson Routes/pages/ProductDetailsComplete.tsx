@@ -26,6 +26,7 @@ export const productDetailsCompleteLoader: LoaderFunction = async ({
 
 const ProductDetailsComplete: React.FC = () => {
   const product = useLoaderData() as IProduct;
+  const imagePath = product.path.includes("http") ? product.path : `http://localhost:3000/assets/${product.path}`
   return (
     <section className={styles.innerCard}>
       <div>
@@ -33,7 +34,7 @@ const ProductDetailsComplete: React.FC = () => {
           <img
             width="100"
             height="100"
-            src={`http://localhost:3000/assets/${product.path}`}
+            src={imagePath}
             alt={product.title}
           />
           <div className={styles.header}>
