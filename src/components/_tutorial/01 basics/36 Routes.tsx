@@ -76,8 +76,10 @@
  * To display a loading spinner in those cases the useNavigation hook can be used. It provides a state, which tells us if a submit runs or data gets loaded. In this case simple show a loading spinner.
  */
 
+import { Suspense } from "react";
 import {
   ActionFunction,
+  Await,
   createBrowserRouter,
   Form,
   isRouteErrorResponse,
@@ -258,6 +260,28 @@ const ProductsComponent: React.FC = () => {
         })}
       </ul>
     </section>
+  );
+};
+
+/**
+ * Provides an alternative ProductComponent which works with Suspense and Await
+ * Suspense provides the possibility to show an alternative component as long as Await waits for the loader to be load the whole data.
+ * The data to be loaded are coming by the hook useLoaderData
+ */
+const ProductComponentWithAwait: React.FC = () => {
+  const products = useLoaderData() as IProduct[];
+  return (
+    <Suspense fallback={<p>... loading by suspense</p>}>
+      <Await resolve={products}>
+        {products.map((product) => {
+          return (
+            <li key={product.id}>
+              <Link to={product.id.toString()}>{product.title}</Link>
+            </li>
+          );
+        })}
+      </Await>
+    </Suspense>
   );
 };
 
