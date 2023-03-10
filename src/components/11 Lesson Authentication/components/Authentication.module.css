@@ -1,0 +1,27 @@
+.authentication {
+  font-size: larger;
+  background-color: white;
+  border-radius: 12px;
+  padding: 2rem;
+}
+
+.element {
+  margin: 1rem;
+}
+
+.authentication input {
+  font-size: large;
+  padding: 0.5rem;
+  width: 30%;
+}
+
+.authentication button {
+  font-size: larger;
+  background-color: blueviolet;
+  color: white;
+  border-radius: 12px;
+  border-color: blueviolet;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
