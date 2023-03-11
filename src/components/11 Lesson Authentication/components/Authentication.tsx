@@ -1,15 +1,10 @@
+import { Form, FormMethod } from "react-router-dom";
 import styles from "./Authentication.module.css";
 
-const Authentication: React.FC = () => {
+const Authentication: React.FC<{ method: FormMethod }> = (props) => {
   return (
     <>
-      <form
-        action=""
-        className={styles.authentication}
-        onSubmit={(event) => {
-          event.preventDefault();
-        }}
-      >
+      <Form action="" className={styles.authentication} method={props.method}>
         <div>
           <div className={styles.footer}>
             <div className={styles.element}>
@@ -17,7 +12,7 @@ const Authentication: React.FC = () => {
                 <label htmlFor="email">E-Mail</label>
               </div>
               <div>
-                <input type="text" id="email" />
+                <input type="text" id="email" name="email" />
               </div>
             </div>
             <div className={styles.element}>
@@ -25,7 +20,7 @@ const Authentication: React.FC = () => {
                 <label htmlFor="password">Password</label>
               </div>
               <div>
-                <input type="password" id="password" />
+                <input type="password" id="password" name="password" />
               </div>
             </div>
           </div>
@@ -33,7 +28,7 @@ const Authentication: React.FC = () => {
             <button>Login</button>
           </div>
         </div>
-      </form>
+      </Form>
     </>
   );
 };

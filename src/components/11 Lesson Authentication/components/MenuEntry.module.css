@@ -1,0 +1,7 @@
+.menuEntry {
+  margin: 0 1rem;
+}
+
+.isActive {
+  background-color: bisque;
+}
