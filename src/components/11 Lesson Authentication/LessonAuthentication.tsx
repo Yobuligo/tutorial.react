@@ -5,7 +5,9 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import { ILesson } from "../Lessons/model/ILesson";
-import Authentication from "./components/Authentication";
+import Authentication, {
+  AuthenticationFormData,
+} from "./components/Authentication";
 import Main from "./components/Main";
 import { IMenuEntry } from "./model/IMenuEntry";
 import { Token } from "./model/Token";
@@ -17,6 +19,7 @@ const login = () => {
   if (Token.hasNot()) {
     return redirect("/login");
   }
+  return Token.find();
 };
 
 const menuEntries: IMenuEntry[] = [
@@ -53,18 +56,31 @@ const router = createBrowserRouter([
       },
       {
         path: "login",
-        element: <Authentication method="get"/>,
+        element: <Authentication method="post" />,
         action: async ({ request }) => {
           const data = await request.formData();
-          const email = data.get("email");
-          const password = data.get("password");
+          const email = data.get(AuthenticationFormData.email) as string;
+          const password = data.get(AuthenticationFormData.password) as string;
+          const token = Token.login(email, password);
+          if (token) {
+            return token;
+          } else {
+            return new Error(
+              "Error while logging in. Unknown user or wrong password"
+            );
+          }
         },
       },
       {
         path: "register",
-        element: <Authentication method="post"/>,
+        element: <Authentication method="post" />,
         action: async ({ request }) => {
           const data = await request.formData();
+          const email = data.get(AuthenticationFormData.email) as string;
+          const password = data.get(AuthenticationFormData.password) as string;
+          const token = Token.create(email, password);
+          Token.save(token);
+          return redirect("/");
         },
       },
       {

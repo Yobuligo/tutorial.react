@@ -8,6 +8,20 @@ export class Token {
     this.value = value;
   }
 
+  static create(email: string, password: string): Token {
+    return new Token(`${email} ${password}`);
+  }
+
+  static login(email: string, password: string): Token | undefined {
+    return ifNotNull(localStorage.getItem(this.keyToken), (value) => {
+      const credentials = value.split(" ");
+      if (credentials[0] === email && credentials[1] === password) {
+        return new Token(value);
+      }
+      return undefined;
+    });
+  }
+
   static delete() {
     localStorage.removeItem(this.keyToken);
   }
