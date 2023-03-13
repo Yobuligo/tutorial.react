@@ -17,8 +17,8 @@ const UseStateSetAsFunction: React.FC = () => {
     setCount(count + 1);
 
     // so instead use the possibility to set the value by function -> now the result would be 2
-    setCount((value) => value + 1);
-    setCount((value) => value + 1);
+    setCount((previous) => previous + 1);
+    setCount((previous) => previous + 1);
   };
   return (
     <>
