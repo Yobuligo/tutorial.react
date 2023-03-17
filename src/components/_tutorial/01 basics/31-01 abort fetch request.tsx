@@ -6,9 +6,9 @@
 
 import { useEffect, useState } from "react";
 
-const useFetch = (url: string) => {
+function useFetch<T>(url: string) {
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState();
+  const [data, setData] = useState<T>();
   const [error, setError] = useState<Error>();
 
   // This useEffect is called whenever the url parameter changed.
