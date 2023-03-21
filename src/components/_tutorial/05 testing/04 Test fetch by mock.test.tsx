@@ -5,6 +5,8 @@ describe("TestFetchByMock", () => {
   test("renders persons asynchronously", async () => {
     // mock the fetch function by a jest function
     window.fetch = jest.fn();
+    
+    // The mockResolvedValueOnce is set by jest
     (window.fetch as any).mockResolvedValueOnce({
       json: async () => [{ firstname: "Stacey" }, { firstname: "Bertha" }],
     });
