@@ -5,6 +5,10 @@
 
 import { useEffect, useState } from "react";
 
+/**
+ * These variables are defined outside the hook useStore
+ * This is very important. It means that each user of useStore wont get its own variables, instead these variables are shared with all users.
+ */
 let globalState = {};
 let listeners: any[] = [];
 let actions: any = {};
