@@ -20,4 +20,12 @@ describe("TestWithEvent", () => {
     const expected = screen.getByText("Changed text");
     expect(expected).toBeInTheDocument();
   });
+
+  test("prints not default, if the button was clicked", () => {
+    render(<TestWithEvent />);
+    const button = screen.getByRole("button");
+    userEvent.click(button);
+    const expected = screen.queryByText("Default");
+    expect(expected).toBeNull();
+  });
 });
