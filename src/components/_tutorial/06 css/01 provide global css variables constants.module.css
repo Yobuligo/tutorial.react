@@ -1,0 +1,26 @@
+/**
+ * Often it is required to provide css information globally.
+ * Imagine you use colors on different components, like a central primary color.
+ * If this colors must be changed, you want to adjust all components.
+ * 
+ * Unfortunately there is no way to provide variables which are recognized as variables and which can be renamed centrally. 
+ * So if the variable name is "--primary" and it is used in several css files, then these files would have to be adjusted if the name changed to --main.
+ * So choose the variable name wisely. 
+ * 
+ * But how does it work.
+ * 1. provide e.g. a file color.css in the src folder of your react project. That should contain all colors.
+ * 2. import the colors by adding 'import "./color.css";' into the file "index.tsx".
+ * 3. provide the colors by adding the following code to the color.css. Important, do not forget the ; behind the color (here blue).
+ *    This color (--primary) then defined globally. 
+ *          :root {
+ *                 --primary: blue;
+ *           }
+ * 4. use this color by importing the variable with function var and the variable name, which is declared in the color.css.
+ *    As the color is provided globally for the whole project there is no need to import the variable, it is directly available.
+ *    But even if you would import the variables via @import "./Others.css" there seems to be no way 
+ *    that the variables are referenced so that you can rename it centrally and the renaming is applied for all caller
+ */
+
+.useGlobalCSS{
+    background-color: var(--primary);
+}
