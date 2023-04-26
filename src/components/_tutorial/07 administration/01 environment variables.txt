@@ -1,0 +1,24 @@
+In React it is possible to use environment variables to provide information about the landscape an application is running.
+E.g. the database my change some user information or whatever. 
+There are already predefined variables like "process.env.NODE_ENV". "process.env.NODE_ENV" for example provides information about the environment itself, if it is a development, test or productive environment.
+
+Adding own environment variables.
+
+1.  Add .env file
+    The first step is to add a file ".env", which must be provided on root-level, which means on the level of package.json.
+
+2.  Set parameter
+    The environment variables are key value pairs. As each parameter is converted to a string, there is no need to provide quotes. 
+    Import is to add the prefix "REACT_APP_*", otherwise this parameter will be ignored, to not override other parameters from the system which have the same name.
+    An example would be:
+
+    REACT_APP_DATABASE_URL=http://development-database.com
+
+3.  Access parameter
+    The parameters are accessible via global variable "process.env.*". So to access the database url the access would be e.g.:
+
+    <h1>{process.env.REACT_APP_DATABASE_URL}</h1>
+
+4.  Restart Server
+    Important to know is, that whenever a parameter was added or changed it is required to restart the server. Otherwise the old set of parameters would be used.
+    Restart means to call: npm start
