@@ -1,0 +1,9 @@
+Next to centralize environment variables it is also possible to have separate environment variables for e.g. development and production.
+Therefore create to separate files which contain the variables for the corresponding system type.
+
+    .env.development
+    .env.production
+
+But it seems you have to install a separate package to use it and to adjust the script for "build" or "test" by providing the files which should be used.
+
+Keep in mind, these files shouldn't contain any keys. So better exclude the files from git by adding it to .gitignore.
