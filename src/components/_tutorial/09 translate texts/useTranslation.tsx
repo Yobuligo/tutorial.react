@@ -33,7 +33,7 @@
  * Within the component below {@link UseTranslationComponent} the translated text of the key "homepage.header" is translated
  */
 
-import { useLocalStorage } from "../useLocalStorage";
+import { useLocalStorage } from "../08 custom hooks/useLocalStorage";
 import * as translations from "./texts";
 
 export const useTranslation = () => {
