@@ -7,7 +7,7 @@ import React, { ReactNode } from "react";
  */
 
 export class ErrorBoundary extends React.Component<
-  { children: ReactNode },
+  { children: ReactNode; fallback?: ReactNode },
   { hasError: boolean }
 > {
   state = { hasError: false };
@@ -27,11 +27,12 @@ export class ErrorBoundary extends React.Component<
   }
 
   /**
-   * The render method simply decides if the children is rendered or in case of an error, what should be printed
+   * The render method simply decides if the children is rendered or in case of an error, what should be printed.
+   * In addition, which is not necessary it is possible to provide a fallback component in case of an error.
    */
   render(): React.ReactNode {
     if (this.state.hasError) {
-      return <>Error occurred</>;
+      return <>{this.props.fallback ?? <>An error occurred</>}</>;
     } else {
       return this.props.children;
     }
@@ -42,9 +43,13 @@ const ThrowingChildComponent: React.FC = () => {
   throw new Error("Throwing an error for free");
 };
 
+const ErrorDetails: React.FC<{ message: string }> = (props) => {
+  return <>{props.message}</>;
+};
+
 const ErrorBoundaryComponent: React.FC = () => {
   return (
-    <ErrorBoundary>
+    <ErrorBoundary fallback={<ErrorDetails message="An error occurred" />}>
       <ThrowingChildComponent />
     </ErrorBoundary>
   );
