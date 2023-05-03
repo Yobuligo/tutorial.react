@@ -1,5 +1,5 @@
 {
-    "sayHello": "hallo",
+    "sayHello": "hallo '{{name}}'",
     "homePage": {
         "header": "Willkommen"
     }
