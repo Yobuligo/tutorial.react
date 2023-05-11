@@ -2,7 +2,7 @@
  * There is a build in progress indicator in HTML
  */
 
-const ProgressComponent: React.FC = () => {
+export const ProgressComponent: React.FC = () => {
   return (
     <>
       <progress value={50} max={100}>

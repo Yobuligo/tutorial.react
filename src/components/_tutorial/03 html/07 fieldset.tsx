@@ -2,7 +2,7 @@
  * Provides a frame around some tags. By providing a legend the fieldset gets a name.
  */
 
-const FieldsetComponent: React.FC = () => {
+export const FieldsetComponent: React.FC = () => {
   return (
     <fieldset>
       <legend>Name of the Fieldset</legend>
