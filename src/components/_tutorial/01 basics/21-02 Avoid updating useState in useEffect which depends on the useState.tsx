@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const UpdateUseStateInUseEffect: React.FC = () => {
+export const UpdateUseStateInUseEffect: React.FC = () => {
   const [number, setNumber] = useState(0);
 
   // The following useEffect causes problems, as the number is set as dependency.
