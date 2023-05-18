@@ -39,9 +39,7 @@ const TestImproved: React.FC = () => {
   // here the interval is cleared whenever the component and therefore the useEffect is destructed
   useEffect(() => {
     const interval = setInterval(() => console.log("Interval finished"), 1000);
-    return () => {
-      clearInterval(interval);
-    };
+    return () => clearInterval(interval);
   }, []);
   return <></>;
 };

@@ -3,7 +3,7 @@
  * Title means the value which is displayed in the tab of a web page.
  */
 
-const UpdatePageTitleComponent: React.FC = () => {
+export const UpdatePageTitleComponent: React.FC = () => {
   document.title = "Page title";
   return <></>;
 };
