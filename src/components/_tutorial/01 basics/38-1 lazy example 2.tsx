@@ -22,3 +22,11 @@ export const LazyExample2Component: React.FC = () => {
     </>
   );
 };
+
+const wait = (time: number): Promise<{}> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({});
+    }, time);
+  });
+};

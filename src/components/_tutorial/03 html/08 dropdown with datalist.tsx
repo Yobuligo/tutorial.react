@@ -1,5 +1,6 @@
 /**
- * Provides a list with data to be selected
+ * Provides a list with data to be selected.
+ * Advantage is, that the filtering is already supported
  */
 
 export const DatalistComponent: React.FC = () => {
