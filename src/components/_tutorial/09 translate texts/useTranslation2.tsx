@@ -8,6 +8,9 @@
  * 1. see steps 1 - 3 from "useTranslation" hook.
  * 2. import the texts via variable (here translations) from the folder texts.
  * 3. return the text depending on the translation
+ * 
+ * When changing the language it is important that the components are rerendered. 
+ * Therefore language must be a useState and more specific a useState for the whole application. So useTranslation must either directly access the context.language property or the context.language property is wrapped via hook.
  */
 
 import * as translations from "./texts";
