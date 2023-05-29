@@ -4,8 +4,8 @@
 
 import { useState } from "react";
 
-export const useDataAccessObject = <T>() => {
-  const [dataObjects, setDataObjects] = useState<T[]>([]);
+export const useDataAccessObject = <T>(initialDataObjects?: T[]) => {
+  const [dataObjects, setDataObjects] = useState<T[]>(initialDataObjects ?? []);
 
   const onAdd = (dataObject: T) => {
     setDataObjects((previous) => [...previous, dataObject]);
