@@ -5,7 +5,7 @@ export const useToggle = (
 ): [value: boolean, toggle: (newValue?: boolean) => void] => {
   const [value, setValue] = useState(defaultValue);
   const toggle = useCallback(
-    () => (newValue?: boolean) =>
+    (newValue?: boolean) =>
       newValue ? setValue(newValue) : setValue((previous) => !previous),
     []
   );
