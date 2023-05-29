@@ -19,5 +19,13 @@ export const useDataAccessObject = <T>(initialDataObjects?: T[]) => {
     });
   };
 
-  return { dataObjects, onAdd, onDelete };
+  const onUpdate = (dataObject: T) => {
+    setDataObjects((previous) => {
+      const index = previous.findIndex((element) => element === dataObject);
+      previous.splice(index, 1, dataObject);
+      return [...previous];
+    });
+  };
+
+  return { dataObjects, onAdd, onDelete, onUpdate };
 };
