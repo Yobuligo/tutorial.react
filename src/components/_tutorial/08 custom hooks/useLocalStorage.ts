@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export const useLocalStorage = <T>(
   key: string,
@@ -13,9 +13,12 @@ export const useLocalStorage = <T>(
     }
   }, [key]);
 
-  const updateData = (data: T) => {
-    setData(data);
-    localStorage.setItem(key, JSON.stringify(data));
-  };
+  const updateData = useCallback(
+    () => (data: T) => {
+      setData(data);
+      localStorage.setItem(key, JSON.stringify(data));
+    },
+    [key]
+  );
   return [data, updateData];
 };
