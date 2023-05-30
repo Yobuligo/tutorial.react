@@ -37,7 +37,7 @@ export const AppContext = React.createContext<{
 // 2. To provide the context it is embedded within the JSX by ".Provider". All components between the open and closed context tags (between <AnyContext.Provider></AnyContext.Provider>) can access the context properties.
 //    In addition here is place to handle states, like here the input value which is connected to a useState. The inputValue is updated by setInputValue and can be used within other components.
 export const UseContextComponentParent: React.FC = () => {
-  const [inputValue, setInputValue] = useState("");
+  const [, setInputValue] = useState("");
 
   const onInputChangeHandler = (value: string): void => {
     setInputValue(value);
