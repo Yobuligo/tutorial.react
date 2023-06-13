@@ -9,7 +9,7 @@
  */
 
 import { useLocalStorage } from "../08 custom hooks/useLocalStorage";
-import * as translations from "./texts";
+import * as translations from "./i18n";
 
 export const t = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks

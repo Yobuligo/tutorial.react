@@ -34,7 +34,7 @@
  */
 
 import { useLocalStorage } from "../08 custom hooks/useLocalStorage";
-import * as translations from "./texts";
+import * as translations from "./i18n";
 
 export const useTranslation = () => {
   const [language, setLanguage] = useLocalStorage<string>("language", "en");

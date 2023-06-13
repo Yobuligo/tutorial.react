@@ -13,7 +13,7 @@
  * Therefore language must be a useState and more specific a useState for the whole application. So useTranslation must either directly access the context.language property or the context.language property is wrapped via hook.
  */
 
-import * as translations from "./texts";
+import * as translations from "./i18n";
 
 const useTranslation2 = () => {
   // language could be a separate hook
