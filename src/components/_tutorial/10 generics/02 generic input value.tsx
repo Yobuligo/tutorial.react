@@ -4,7 +4,7 @@
  * That can be realized by using typeof and an initialValue to get the type of an input
  */
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 namespace GenericInputValue {
   interface IInputButtonProps<T> {
@@ -24,10 +24,30 @@ namespace GenericInputValue {
   function InputButton<T>(props: IInputButtonProps<T>) {
     const [value, setValue] = useState(props.initialValue);
     const onClick = () => props.onClick(value);
+
+    const type: React.HTMLInputTypeAttribute =
+      useMemo((): React.HTMLInputTypeAttribute => {
+        switch (typeof props.initialValue) {
+          case "string":
+            return "text";
+          case "number":
+            return "number";
+          case "object": {
+            if (props.initialValue instanceof Date) {
+              return "date";
+            }
+            return "text";
+          }
+          default:
+            return "text";
+        }
+      }, []);
+
     return (
       <>
         <input
-          type={typeof props.initialValue}
+          type={type}
+          //   type={typeof props.initialValue}
           value={value as string}
           onChange={(event) => setValue(event.target.value as T)}
         />
@@ -50,6 +70,13 @@ namespace GenericInputValue {
           initialValue={0}
           onClick={(value) => {
             // value is of type number, as the initial value is number
+          }}
+        />
+
+        <InputButton
+          initialValue={new Date()}
+          onClick={() => {
+            // value is of type Date, as the initial value is a Date
           }}
         />
       </>
