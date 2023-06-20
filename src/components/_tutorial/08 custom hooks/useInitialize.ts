@@ -5,9 +5,9 @@
 import { useState } from "react";
 
 const useInitialize = (block: () => void) => {
-  const [needsInitialize, setNeedsInitialize] = useState(true);
-  if (needsInitialize) {
-    setNeedsInitialize(false);
+  const [needsInitialization, setNeedsInitialization] = useState(true);
+  if (needsInitialization) {
+    setNeedsInitialization(false);
     block();
   }
 };
