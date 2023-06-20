@@ -1,24 +1,25 @@
-import { useCallback, useEffect, useState } from "react";
+/**
+ * The following custom hook can be used to handle data which are stored in the local storage
+ */
+
+import { useCallback, useState } from "react";
+import { readLocalStorage } from "../11 utils/readLocalStorage";
+import { writeLocalStorage } from "../11 utils/writeLocalStorage";
 
 export const useLocalStorage = <T>(
   key: string,
-  defaultValue: T
-): [data: T, updateData: (data: T) => void] => {
-  const [data, setData] = useState<T>(defaultValue);
+  fallbackValue: T
+): [value: T, updateValue: (newValue: T) => void] => {
+  const [value, setValue] = useState<T>(
+    readLocalStorage(key) ?? writeLocalStorage(key, fallbackValue)
+  );
 
-  useEffect(() => {
-    const item = localStorage.getItem(key);
-    if (item) {
-      setData(JSON.parse(item));
-    }
-  }, [key]);
-
-  const updateData = useCallback(
+  const updateValue = useCallback(
     (data: T) => {
-      setData(data);
-      localStorage.setItem(key, JSON.stringify(data));
+      setValue(data);
+      writeLocalStorage(key, data);
     },
     [key]
   );
-  return [data, updateData];
+  return [value, updateValue];
 };
