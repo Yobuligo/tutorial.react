@@ -1,0 +1,23 @@
+.modalContainer {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+  }
+  
+  .backdrop {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(156, 156, 156, 0.514);
+    z-index: -10;
+  }
+  
+  .modalDialog {
+    position: absolute;
+    display: inline-block;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%);
+  }
+  
