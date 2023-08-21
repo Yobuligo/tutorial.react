@@ -1,12 +1,11 @@
-import { IValue } from "./useValue";
 /**
  * The custom hook useTranslation depends on the language of the system or from the customizing.
  * So therefore it actually has a dependency to the custom hook useLanguage. And the useLanguage custom hook must actually be provided globally only once, so that each instance of useTranslation refers to the same language.
  */
 
 import { createContext, useContext } from "react";
-import { useLocalStorage } from "./useLocalStorage";
 import * as translations from "../09 translate texts/i18n";
+import { useLocalStorage } from "./useLocalStorage";
 
 namespace UsTranslation {
   interface IValue<T> {
