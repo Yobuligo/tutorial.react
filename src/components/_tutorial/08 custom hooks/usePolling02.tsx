@@ -64,6 +64,10 @@ function usePolling<T>() {
   return onPoll;
 }
 
+
+/**
+ * App implementation
+ */
 const App: React.FC = () => {
   const [persons, setPersons] = useState<IPerson[]>([]);
   const poll = usePolling();
