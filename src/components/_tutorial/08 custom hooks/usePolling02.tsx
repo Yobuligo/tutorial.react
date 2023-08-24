@@ -74,7 +74,6 @@ const App: React.FC = () => {
   };
 
   useEffect(() => {
-    reload();
     poll(PersonRepository, 123, () => reload());
   }, [poll]);
 
