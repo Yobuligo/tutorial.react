@@ -1,4 +1,6 @@
 /**
+ * UPDATE!!!!!! 
+ * Actually polling is no hook but a normal function instead.
  * Here is an even nicer variant of the usePolling hook.
  *      1.  The properties are not injected when creating the hook like useHook(Repository, ()=>reload())
  *          Instead the there information are injected when calling onPoll
