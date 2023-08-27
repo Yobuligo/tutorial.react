@@ -1,4 +1,6 @@
 /**
+ * UPDATE!!!!!! 
+ * Actually polling is no hook but a normal function instead. It has no access to any useState or other information
  * A custom hook that can be used to poll data in a certain frequency, to update the UI.
  */
 
