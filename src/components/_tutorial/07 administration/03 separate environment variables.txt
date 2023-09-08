@@ -26,6 +26,8 @@ Also consider the order of used environment variables. Here you can see, that e.
 Dev.: (npm start): .env.development.local, .env.local, .env.development, .env
 Prod.: (npm run build): .env.production.local, .env.local, .env.production, .env
 
+Using environment variables in scripts. It is possible to use an environment variable in the script definition within the package.json. Whenever npm start is called it will call the application with HOSTNAME as localhost and PORT as 1234
+"start":"HOSTNAME=localhost PORT=1234 node app.js"
 
 Using .env.local
 In .env.local you can set up environment variables that are specific to your local machine and it doesn't have to be on development mode to work. 
