@@ -25,3 +25,8 @@ Using environment variables depending on the environment type on base of dotenv
 Also consider the order of used environment variables. Here you can see, that e.g. the command npm run build uses .env.production as default, while npm start prefers .env.development:
 Dev.: (npm start): .env.development.local, .env.local, .env.development, .env
 Prod.: (npm run build): .env.production.local, .env.local, .env.production, .env
+
+
+Using .env.local
+In .env.local you can set up environment variables that are specific to your local machine and it doesn't have to be on development mode to work. 
+So variables there will work for both development and production
