@@ -32,3 +32,7 @@ Using environment variables in scripts. It is possible to use an environment var
 Using .env.local
 In .env.local you can set up environment variables that are specific to your local machine and it doesn't have to be on development mode to work. 
 So variables there will work for both development and production
+
+Variables NODE_ENV (process.env.NODE_ENV)
+It is used to define if we are in development or production.
+Is set by the hosting provider.
