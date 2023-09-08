@@ -17,7 +17,11 @@ you can use dotEnv that can handle the environment variables.
 4. access the variables by process.env.<name>
 
 Using environment variables depending on the environment type on base of dotenv
-1. create a .env.<environment-type> file for each environment type e.g. .env.development, .env.production, .env.test 
+1. create a .env.<environment-type> file for each environment type e.g. .env.development or .env.production
 2. adjust dotenv.config by getting the environment type from another node environment variable by calling dotenv.config({ path: ".env.${process.env.NODE_ENV}"})
 3. Run the app with another parameter by calling e.g. (here the app runs on a production system)
     "NODE_ENV=production node index.js"
+
+Also consider the order of used environment variables. Here you can see, that e.g. the command npm run build uses .env.production as default, while npm start prefers .env.development:
+Dev.: (npm start): .env.development.local, .env.local, .env.development, .env
+Prod.: (npm run build): .env.production.local, .env.local, .env.production, .env
