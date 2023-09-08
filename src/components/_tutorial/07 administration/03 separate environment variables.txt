@@ -36,3 +36,11 @@ So variables there will work for both development and production
 Variables NODE_ENV (process.env.NODE_ENV)
 It is used to define if we are in development or production.
 Is set by the hosting provider.
+
+Simulate production system
+If environment types should be tested, this can be achieved by setting NODE_ENV in the start script. The following example would simulate an execution on a production system:
+  "scripts": {
+    "start": "SET NODE_ENV=production&& nodemon ./dist/app.js"
+  },
+This example is for using dotenv. Therefor dotenv has to be configured by setting the .env path to .env.development by using 
+configDotenv({ path: `.env.${process.env.NODE_ENV}` });
