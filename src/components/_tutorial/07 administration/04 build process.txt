@@ -1,0 +1,3 @@
+Adjusting Scripts. It is possible to say that depending on the environment type a specific script should be used. e.g.
+- "start": node app.js - normal start on a productive system would start app.js with node
+- "start:dev": nodemon app.js - start on the development system would start app.js with nodemon
