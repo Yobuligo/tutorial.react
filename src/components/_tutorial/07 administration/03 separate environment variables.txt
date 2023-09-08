@@ -7,3 +7,17 @@ Therefore create to separate files which contain the variables for the correspon
 But it seems you have to install a separate package to use it and to adjust the script for "build" or "test" by providing the files which should be used.
 
 Keep in mind, these files shouldn't contain any keys. So better exclude the files from git by adding it to .gitignore.
+
+have a look at: https://www.youtube.com/watch?v=Hfs8ZEMySXU&ab_channel=WittCode
+
+you can use dotEnv that can handle the environment variables. 
+1. install it by "npm install dotenv"
+2. create .env file
+3. call dotenv.config() to load the parameters (at the very beginning of your application)
+4. access the variables by process.env.<name>
+
+Using environment variables depending on the environment type on base of dotenv
+1. create a .env.<environment-type> file for each environment type e.g. .env.development, .env.production, .env.test 
+2. adjust dotenv.config by getting the environment type from another node environment variable by calling dotenv.config({ path: ".env.${process.env.NODE_ENV}"})
+3. Run the app with another parameter by calling e.g. (here the app runs on a production system)
+    "NODE_ENV=production node index.js"
