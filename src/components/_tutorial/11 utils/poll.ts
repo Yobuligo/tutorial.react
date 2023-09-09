@@ -7,7 +7,12 @@
 interface IRepository<T> {
   findAll(): Promise<T[]>;
   version(id: number): Promise<Date>;
-  poll(id: number, onChange: ()=>void): Promise<void>
+
+  /**
+   * Call the polling directly at the repository. So it is clear which object type is effected (T).
+   * In addition we can call {@link onChange} whenever the object is outdated
+   */
+  poll(id: number, onChange: () => void): Promise<void>;
 }
 
 interface IPerson {
