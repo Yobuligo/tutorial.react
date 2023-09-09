@@ -1,11 +1,13 @@
 /**
  * Previously I implemented a custom hook usePolling to poll.
  * But actually it is enough to just have a method for polling.
+ * !!!!! Another approach is to add the polling directly to the repository.
  */
 
 interface IRepository<T> {
   findAll(): Promise<T[]>;
   version(id: number): Promise<Date>;
+  poll(id: number, onChange: ()=>void): Promise<void>
 }
 
 interface IPerson {
