@@ -1,18 +1,11 @@
 /**
  * Previously I implemented a custom hook usePolling to poll.
  * But actually it is enough to just have a method for polling.
- * !!!!! Another approach is to add the polling directly to the repository.
  */
 
 interface IRepository<T> {
   findAll(): Promise<T[]>;
   version(id: number): Promise<Date>;
-
-  /**
-   * Call the polling directly at the repository. So it is clear which object type is effected (T).
-   * In addition we can call {@link onChange} whenever the object is outdated
-   */
-  poll(id: number, onChange: () => void): Promise<void>;
 }
 
 interface IPerson {
