@@ -6,13 +6,12 @@
  *      support replace of placeholders
  *      support pluralization
  *      support fallback values
- * 
+ *
  * Therefore we go back to the old mechanism to have a function that is responsible to translate and we need a variable that keeps the text structure, NOT the texts itself.
  * This variable has the same structure as the texts, but instead of having the texts as value it has the key as value.
  * So we can access the values type safe and later the value, which is now the key is converted to the correct word, depending on the selected variable
  */
 
-import { useLocalStorage } from "../08 custom hooks/useLocalStorage";
 import * as translations from "./i18n";
 
 /**
@@ -50,7 +49,7 @@ const fillPath = (object: object, path: string) => {
 
 /**
  * This function is responsible for creating the text object. It has the correct structure, like the translation files but contains the path of itself.
- * In addition we ensure that english is the leading language. So whenever another language is not provided, we have a fallback.  
+ * In addition we ensure that english is the leading language. So whenever another language is not provided, we have a fallback.
  * On the other hand this means, if a text is not available in english, we cannot use it.
  */
 const createTextObject = () => {
@@ -63,7 +62,6 @@ const createTextObject = () => {
  * This variable is required to access the texts
  */
 export const texts = createTextObject();
-
 
 /**
  * The hook itself.
@@ -87,4 +85,9 @@ export const useTranslation = () => {
   };
 
   return { t };
+};
+
+const UseTranslationComponent: React.FC = () => {
+  const { t } = useTranslation();
+  return <>{t(texts.sayHello)}</>;
 };
