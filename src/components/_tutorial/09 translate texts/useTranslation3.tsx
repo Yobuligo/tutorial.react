@@ -64,7 +64,7 @@ const createTextObject = () => {
 /**
  * This variable is required to access the texts
  */
-export const texts = createTextObject();
+export const texts: typeof translations["en"] = createTextObject();
 
 /**
  * The hook itself.
