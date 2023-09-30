@@ -12,5 +12,5 @@ describe("TestAsync", () => {
     render(<TestAsync />);
     const listItems = await screen.findAllByRole("listitem");
     expect(listItems).toHaveLength(2);
-  });
+  });  
 });

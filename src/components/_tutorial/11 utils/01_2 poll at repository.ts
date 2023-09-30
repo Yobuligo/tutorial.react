@@ -19,6 +19,18 @@ interface IRepository<T> {
   poll(id: number, onChange: () => void): void;
 }
 
+/**
+ * Function to unsubscribe from an event. Here it is used to unsubscribe from polling
+ */
+type Unsubscribe = () => void;
+
+/**
+ * Represents a poll state. It is used to control polling, if it should run or stop.
+ */
+interface IPollState {
+  running: boolean;
+}
+
 class Repository<T> implements IRepository<T> {
   findAll(): Promise<T[]> {
     throw new Error("Method not implemented.");
@@ -28,14 +40,21 @@ class Repository<T> implements IRepository<T> {
     throw new Error("Method not implemented.");
   }
 
-  poll(id: number, onChange: () => void) {
-    this.startPoll(undefined, id, onChange);
+  poll(id: number, onChange: () => void): Unsubscribe {
+    const pollState: IPollState = { running: true };
+    this.startPoll(undefined, id, onChange, pollState);
+
+    // return function to unsubscribe from polling, to stop polling
+    return () => {
+      pollState.running = false;
+    };
   }
 
   private startPoll(
     lastVersion: Date | undefined,
     id: number,
-    onChange: () => void
+    onChange: () => void,
+    pollState: IPollState
   ) {
     setTimeout(async () => {
       try {
@@ -44,7 +63,11 @@ class Repository<T> implements IRepository<T> {
           lastVersion = version;
           await onChange();
         }
-        this.startPoll(lastVersion, id, onChange);
+
+        // Check if pollState.running is still active, otherwise stop polling
+        if (pollState.running) {
+          this.startPoll(lastVersion, id, onChange, pollState);
+        }
       } catch (error) {
         if (error instanceof Error) {
           console.log(`Error while polling. ${error.message}`);
