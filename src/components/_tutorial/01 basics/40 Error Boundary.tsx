@@ -4,6 +4,10 @@ import React, { ReactNode } from "react";
  * Bubbling errors or handle errors are hardly possible for functional components.
  * Instead you need a class and override method componentDidCatch(error){}. That class is a normal React component.
  * This means it can be embedded in other components and can write errors to a console or whatever is required to handle the error.
+ * 
+ * If a technical error message is displayed over your error boundary it comes from React. It displays the up coming error from the console at an overlay.
+ * This overlay won't be displayed in production mode and can be closed by clicking the close button.
+ * After closing the overlay the actually error boundary should be displayed.
  */
 
 export class ErrorBoundary extends React.Component<
