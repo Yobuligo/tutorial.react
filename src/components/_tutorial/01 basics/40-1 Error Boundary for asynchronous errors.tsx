@@ -69,7 +69,7 @@ const Component: React.FC = () => {
  * This app uses a normal ErrorBoundary
  * Inside it displays the Component that throws an error.
  */
-const App: React.FC = () => {
+export const App: React.FC = () => {
   return (
     <ErrorBoundary>
       <Component />
