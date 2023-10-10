@@ -24,7 +24,7 @@ const Welcome: React.FC = () => {
 };
 
 /**
- * The component Products refers to the data of the loader, which were provided by id *root*
+ * The component Products refers to the data of the loader, which were provided by route with id *root*
  */
 const Products: React.FC = () => {
   const products = useRouteLoaderData("root") as IProduct[];
