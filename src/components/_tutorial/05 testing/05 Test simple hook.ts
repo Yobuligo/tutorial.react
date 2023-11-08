@@ -16,3 +16,14 @@ export const useValue = <T>(initialValue: T): IValue<T> => {
   const [value, setValue] = useState<T>(initialValue);
   return { value, setValue };
 };
+
+/**
+ * This component calls {@link block} for the first time, when useInitialize is called.
+ */
+export const useInitialize = (block: () => void) => {
+  const [needsInit, setNeedsInit] = useState(true);
+  if (needsInit) {
+    setNeedsInit(false);
+    block();
+  }
+};
