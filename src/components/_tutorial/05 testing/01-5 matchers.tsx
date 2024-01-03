@@ -9,6 +9,6 @@
  * - expect(element).toBeInTheDocument() -> element in document?
  * - expect(element).toBeEnabled() -> Element (like a button) is not disabled?
  * - expect(element).toHaveClass() -> Does element has a class name?
- * - expect(element).toHaveTextContent() -> Does element has particular text?
+ * - expect(element).toHaveTextContent() -> Does element have particular text?
  * - expect(element).toHaveValue() -> Does input, select or textarea specific value?
  */
