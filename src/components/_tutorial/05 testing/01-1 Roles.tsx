@@ -1,6 +1,6 @@
 /**
  * Roles are used to identify elements in a react application.
- * Normally those roles shouldnt be set manually.
+ * Normally those roles shouldn't be set manually.
  * 
  * The following roles are default:
  * heading -> h1 - h6
