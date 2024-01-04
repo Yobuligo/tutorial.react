@@ -3,11 +3,17 @@
  * Normally those roles shouldn't be set manually.
  * 
  * The following roles are default:
- * heading -> h1 - h6
- * list -> ul, li
+ * Banner -> e.g. header
  * button -> button
+ * checkbox -> <input type="checkbox" />
+ * ContentInfo -> e.g. footer
+ * heading -> h1 - h6
+ * img -> Img
+ * list -> ul, li
  * link -> a
- * textbox -> input, type="text"
+ * radio -> <input type="radio" />
+ * spinbutton -> <input type="number" />
+ * textbox -> <input type="textbox" />
  * 
  * full list: https://www.w3.org/TR/html-aria/#docconformance
  */
