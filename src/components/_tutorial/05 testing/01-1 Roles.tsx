@@ -16,4 +16,8 @@
  * textbox -> <input type="textbox" />
  * 
  * full list: https://www.w3.org/TR/html-aria/#docconformance
+ * 
+ * Also it is possible to create a rtl-book with all roles, which are provided by the udemy course.
+ * This can be achieved by calling:
+ * "npx rtl-book serve roles-notes.js"
  */
