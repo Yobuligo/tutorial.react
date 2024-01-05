@@ -1,7 +1,22 @@
+/**
+ * The following test example shows how to trigger an event
+ * Here a text is printed and whenever the button was clicked, the text is changed.
+ */
+
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { TestWithEvent } from "./02 Test with events";
+import { useState } from "react";
+
+export const TestWithEvent: React.FC = () => {
+  const [text, setText] = useState("Default");
+  return (
+    <>
+      {text}
+      <button onClick={() => setText("Changed text")}>Click Me</button>
+    </>
+  );
+};
 
 describe("TestWithEvent", () => {
   test("prints a default text if the button wasn't clicked", () => {

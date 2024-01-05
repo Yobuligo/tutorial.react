@@ -11,7 +11,7 @@
  */
 
 import { act, renderHook } from "@testing-library/react";
-import { useInitialize, useValue } from "./05 Test simple hook";
+import { useInitialize, useValue } from "./01 Test simple hook";
 
 describe("useValue", () => {
   it("returns object with value", () => {

@@ -6,6 +6,11 @@
  * and as long as "loading" is set to true, we display "... loading"
  */
 
+import {
+  render,
+  screen,
+  waitForElementToBeRemoved,
+} from "@testing-library/react";
 import { useEffect, useState } from "react";
 
 export const TestLoadingSpinner: React.FC = () => {
@@ -28,3 +33,15 @@ export const TestLoadingSpinner: React.FC = () => {
 
   return <>{loading ? <>... loading</> : <>Content</>}</>;
 };
+
+describe("TestLoadingSpinner", () => {
+  /**
+   * To test a loading spinner, we must check if it was there any time by using waitForElementToBeRemoved.
+   * We are displaying the loading spinner, which is just the text "... loading" as long as the data are loaded.
+   * Later it must be replaced by the component
+   */
+  it("displays loading spinner", async () => {
+    render(<TestLoadingSpinner />);
+    await waitForElementToBeRemoved(() => screen.queryByText("... loading"));
+  });
+});

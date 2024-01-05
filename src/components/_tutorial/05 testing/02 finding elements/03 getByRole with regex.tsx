@@ -25,4 +25,7 @@ test("User value was entered", () => {
 
   // Finds the button with caption "Submit".
   const buttonSubmit = screen.getByRole("button", { name: /submit/i });
+
+  expect(inputFirstname).toBeInTheDocument();
+  expect(buttonSubmit).toBeInTheDocument();
 });

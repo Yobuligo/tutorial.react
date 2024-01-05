@@ -1,3 +1,4 @@
+import { render, screen } from "@testing-library/react";
 import { useEffect, useState } from "react";
 
 /**
@@ -21,3 +22,18 @@ export const TestFetchByMock: React.FC = () => {
   }, []);
   return <>{items}</>;
 };
+
+describe("TestFetchByMock", () => {
+  test("renders persons asynchronously", async () => {
+    // mock the fetch function by a jest function
+    window.fetch = jest.fn();
+
+    // The mockResolvedValueOnce is set by jest
+    (window.fetch as any).mockResolvedValueOnce({
+      json: async () => [{ firstname: "Stacey" }, { firstname: "Bertha" }],
+    });
+    render(<TestFetchByMock />);
+    const listItems = await screen.findAllByRole("listitem");
+    expect(listItems).toHaveLength(2);
+  });
+});
