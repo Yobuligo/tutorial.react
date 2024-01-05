@@ -8,7 +8,7 @@
  *      find - Find can be used e.g. in combination with await if e.g. a fetch is running and we have to wait for an element to appear. Its similar to "await waitFor(()=>{})"
  *
  * Next to function type like get, query, find there is a kind of data in the suffix to get specific data. Here we have:
- *      ByRole - finding by its role, which
+ *      ByRole - finding by its role, which the element is connected to
  *      ByLabelText - finding by text, which is part of the paired label
  *      ByPlaceholderText - finding an element by placeholder
  *      ByText - finding an element by text

@@ -19,12 +19,12 @@ const Test: React.FC = () => {
   );
 };
 
-// This is our custom matcher. It must return an instance of ?CustomMatcherResult?, which has the two props pass and message.
+// This is our custom matcher. It must return an instance of CustomMatcherResult, which has the two props pass and message.
 const toContainRole = (
   container: HTMLElement,
   role: ByRoleMatcher,
   quantity: number
-) => {
+): jest.CustomMatcherResult => {
   const elements = within(container).queryAllByRole(role);
 
   if (elements.length === quantity) {
