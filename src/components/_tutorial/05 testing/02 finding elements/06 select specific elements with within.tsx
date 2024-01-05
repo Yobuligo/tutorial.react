@@ -40,4 +40,5 @@ test("gets only the table data rows", () => {
   // Here we use the function within to define a smaller scope which should be searched.
   // Previously we defined that are by property "data-testid" with value "users".
   const rows = within(screen.getByTestId("users")).getAllByRole("row");
+  expect(rows).toHaveLength(2);
 });
