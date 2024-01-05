@@ -12,7 +12,7 @@
  *      ByLabelText - finding by text, which is part of the paired label
  *      ByPlaceholderText - finding an element by placeholder
  *      ByText - finding an element by text
- *      ByDisplayValue - finding an element based on the current value
+ *      ByDisplayValue - finding an element based on the current value (e.g. if an input has a value)
  *      ByAltText - finding by "alt" attribute (like for images)
  *      ByTitle - finding by "title" attribute
  *      ByTestId - finding by "data-testid" attribute
