@@ -8,16 +8,19 @@
 import { render } from "@testing-library/react";
 import { Link, MemoryRouter } from "react-router-dom";
 
+/**
+ * This component cannot be tested without mocking react router dom, as it displays a component "Link",
+ * which required the react router dom framework
+ */
 const Test: React.FC<{ path: string }> = (props) => {
-  <Link to={`/${props.path}`} />;
-  return <></>;
+  return <Link to={`/${props.path}`} />;
 };
 
 test("mock react router dom by memory router", () => {
   // The component under test has to be wrapped by MemoryRouter
   render(
     <MemoryRouter>
-      <Test path="api/users" />
+      <Test path="/" />
     </MemoryRouter>
   );
 });
