@@ -26,7 +26,7 @@ const Caller: React.FC = () => {
 /**
  * To mock the component {@link Callee}, we have to use the function jest.mock.
  * It requires two parameters.
- * 1. the path to the component that should be mocked
+ * 1. the path to the component that should be mocked. The path must be the path of the component from point of this test case.
  * 2. a function that returns an alternative component, which should be rendered instead
  */
 jest.mock("./Callee", () => {
