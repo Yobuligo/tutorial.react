@@ -39,6 +39,7 @@ const Test: React.FC = () => {
 test("gets only the table data rows", () => {
   const { container } = render(<Test />);
 
+  // eslint-disable-next-line
   const rows = container.querySelectorAll("tbody tr");
   expect(rows).toHaveLength(2);
 });

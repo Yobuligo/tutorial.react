@@ -1,0 +1,1 @@
+If the error "expect(...).toBeInTheDocument is not a function" occurs, you have to import "@testing-library/jest-dom"
