@@ -1,5 +1,6 @@
 {
     "sayHello": "hello '{{name}}'",
+    "navigateTo": "Click {{link}} to navigate to something",
     "homePage": {
         "header": "Welcome"
     }    

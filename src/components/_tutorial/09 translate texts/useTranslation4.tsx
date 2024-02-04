@@ -1,5 +1,5 @@
 /**
- * Here is an implementation of the useTranslation hook, that provides provides the possibility to use placeholders, but also to use an object that contains a text with placeholders
+ * Here is an implementation of the useTranslation hook, that provides the possibility to use placeholders, but also to use an object that contains a text with placeholders
  */
 
 import * as translations from "./i18n";
