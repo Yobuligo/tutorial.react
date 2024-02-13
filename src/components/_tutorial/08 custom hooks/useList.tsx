@@ -13,10 +13,19 @@ interface IList<T> {
 }
 
 function useList<T>(
-  compare: (a: T, b: T) => boolean,
+  compare: keyof T | ((a: T, b: T) => boolean),
   initialItems?: T[]
 ): IList<T> {
   const [items, setItems] = useState<T[]>(initialItems ?? []);
+
+  const createComparator = useCallback(
+    () =>
+      typeof compare === "function"
+        ? compare
+        : (a: T, b: T) => a[compare] === b[compare],
+
+    [compare]
+  );
 
   const append = useCallback(
     (item: T) => setItems((previous) => [...previous, item]),
@@ -26,14 +35,17 @@ function useList<T>(
   const remove = useCallback(
     (item: T) => {
       setItems((previous) => {
-        const index = previous.findIndex((element) => compare(element, item));
+        const comparator = createComparator();
+        const index = previous.findIndex((element) =>
+          comparator(element, item)
+        );
         if (index !== -1) {
           previous.splice(index, 1);
         }
         return [...previous];
       });
     },
-    [compare]
+    [createComparator]
   );
 
   return { append, items, remove };
@@ -45,9 +57,10 @@ interface IPerson {
 }
 
 export const Test: React.FC = () => {
-  const list = useList<IPerson>((a, b) => a.id === b.id);
+  const firstList = useList<IPerson>((a, b) => a.id === b.id);
+  const secondList = useList<IPerson>("id");
 
-  const items = list.items.map((person) => (
+  const items = secondList.items.map((person) => (
     <div key={person.id}>{person.firstname}</div>
   ));
 
@@ -56,13 +69,13 @@ export const Test: React.FC = () => {
       id: Math.random().toString(),
       firstname: "Stacey",
     };
-    list.append(newPerson);
+    secondList.append(newPerson);
   };
 
   const onRemovePerson = () => {
     // for this example find just the first person
-    const person = list.items[0];
-    list.remove(person);
+    const person = secondList.items[0];
+    secondList.remove(person);
   };
 
   return (
