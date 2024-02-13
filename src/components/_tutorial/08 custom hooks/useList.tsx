@@ -44,7 +44,7 @@ interface IPerson {
   firstname: string;
 }
 
-const Test: React.FC = () => {
+export const Test: React.FC = () => {
   const list = useList<IPerson>((a, b) => a.id === b.id);
 
   const items = list.items.map((person) => (
