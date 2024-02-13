@@ -23,7 +23,6 @@ function useList<T>(
       typeof compare === "function"
         ? compare
         : (a: T, b: T) => a[compare] === b[compare],
-
     [compare]
   );
 
