@@ -3,7 +3,6 @@
  * Therefore I want to inject a React property to CSS.
  * Here comes how this is possible
  */
-
 import { CSSProperties } from "react";
 import styles from "./02 inject variable value to CSS via CSSProperties.module.css";
 
