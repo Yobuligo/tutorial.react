@@ -24,7 +24,7 @@ export namespace CentralSVGIconComponent {
   };
 
   /**
-   * This is our default IconProps interface. It contains all props of an SVG.
+   * This is our default IconProps interface, which is assigned to each concrete. It contains all props of a SVG.
    */
   interface IIconProps extends React.SVGProps<SVGSVGElement> {}
 
